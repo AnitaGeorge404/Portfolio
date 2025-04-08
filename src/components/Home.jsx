@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowIcon, DecorativeIcon, DropdownIcon, SocialX, SocialInstagram, SocialLinkedIn } from './icons';
+import SpotlightCard from './animations/SpotlightCard';
 
 const projectData = [
     {
@@ -136,13 +137,13 @@ export default function Home({ scrollTo }) {
                 animate="visible"
             >
                 {/* Item 1 */}
-                <motion.div className="bento-item item-1" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-1" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1, transition: { delay: 0.2, type: 'spring' } }} className="decorative-icon"><DecorativeIcon /></motion.div>
                     <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}>Crafting thoughtful products from pixel to production</motion.h1>
-                </motion.div>
+                </SpotlightCard>
 
                 {/* Item 2 - Image with a subtle zoom on hover and Resume button */}
-                <motion.div className="bento-item item-2 relative" variants={itemVariants} whileHover={{ scale: 1.03 }} transition={interactiveAnimations.transition}>
+                <SpotlightCard className="bento-item item-2 relative" variants={itemVariants}>
                     <motion.img
                         src="/assets/portrait.jpeg"
                         alt="Portrait of Anita George"
@@ -152,7 +153,7 @@ export default function Home({ scrollTo }) {
                     />
                     {/* --- RESUME BUTTON (INLINE STYLES) --- */}
                     <motion.a
-                        href="/assets/RESUME.pdf" /* <-- ❗️ UPDATE THIS PATH */
+                        href="/assets/RESUME.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
@@ -175,36 +176,36 @@ export default function Home({ scrollTo }) {
                     >
                         View Resume
                     </motion.a>
-                </motion.div>
+                </SpotlightCard>
 
                 {/* Item 3 - Functional Projects Accordion */}
-                <motion.div className="bento-item item-3" variants={itemVariants} >
+                <SpotlightCard className="bento-item item-3" variants={itemVariants}>
                     <HoverAccordion />
-                </motion.div>
+                </SpotlightCard>
 
                 {/* Socials Card */}
-                <motion.div className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="social-links-card">
                         <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
                         <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
                         <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialLinkedIn /></motion.a>
                     </div>
-                </motion.div>
+                </SpotlightCard>
 
                 {/* Bio Card */}
-                <motion.div className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="decorative-icon-small"><DecorativeIcon size={40} /></div>
                     <p>Full-stack developer and engineering student at IIITK, building clean, user-focused digital experiences.</p>
-                </motion.div>
+                </SpotlightCard>
 
-                <motion.div className="bento-item item-5" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
-                    <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem" }}>The How</p>
-                    <h2 className="contact-text">Skills</h2>
+                <SpotlightCard className="bento-item item-5" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
+                    <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem", color:'white' }}>The How</p>
+                    <h2 style={{ fontSize: "3rem", marginTop: "-0.3rem", color:'white', fontFamily:'Playfair Display' }}>Skills</h2>
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
-                </motion.div>
+                </SpotlightCard>
 
                 {/* Contact Card */}
-                <motion.div className="bento-item item-6" styles ={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-6" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>
@@ -212,7 +213,7 @@ export default function Home({ scrollTo }) {
                         <span className="icon-copy-placeholder"></span>
                         <p>georgeanita404@gmail.com</p>
                     </motion.div>
-                </motion.div>
+                </SpotlightCard>
             </motion.div>
         </section>
     );
