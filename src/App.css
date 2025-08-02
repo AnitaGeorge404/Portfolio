@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+:root {
+    --bg-color: #1A1A17;
+    --card-bg-dark: #292925;
+    --card-bg-light: #C4BFB8;
+    --text-color-light: #1A1A17;
+    --text-color-dark: #EAE8E3;
+    --accent-color: #D4D0CA;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --border-color: #3a3a35;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-sans);
+    color: var(--text-color-dark);
+    margin: 0;
+}
+
+/* --- HEADER --- */
+.header {
+    position: fixed; top: 0; left: 0;
+    width: 100%; display: flex;
+    justify-content: space-between; align-items: center;
+    padding: 1.5rem 2rem; background-color: rgba(26, 26, 23, 0.7);
+    backdrop-filter: blur(10px); z-index: 1000;
+    border-bottom: 1px solid var(--border-color); box-sizing: border-box;
+}
+.header-logo { font-size: 1.5rem; font-weight: 600; cursor: pointer; }
+.header-nav { display: flex; gap: 2rem; }
+.header-nav a { cursor: pointer; text-decoration: none; color: var(--accent-color); transition: color 0.3s; font-weight: 500;}
+.header-nav a:hover { color: #fff; }
+.header-button {
+    background-color: var(--card-bg-dark); color: var(--text-color-dark);
+    padding: 0.75rem 1.5rem; border-radius: 99px; text-decoration: none;
+    font-weight: 500; border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+.header-button:hover { background-color: var(--text-color-dark); color: var(--text-color-light); }
+
+/* --- HOME (BENTO GRID) --- */
+#home { padding: 100px 0 0 0; height: 100vh; box-sizing: border-box; }
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* --- THIS IS THE ONLY LINE THAT CHANGED --- */
+    grid-template-rows: 3fr 3fr 1fr 1fr; /* Top rows are larger, bottom rows are smaller */
+    gap: 1rem; height: 100%; padding: 1rem; box-sizing: border-box;
+}
+.bento-item {
+    border-radius: 1.5rem; padding: 2rem; display: flex; flex-direction: column;
+    position: relative; overflow: hidden; border: 1px solid var(--border-color);
+    cursor: pointer; transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.bento-item:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+.bento-item img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+
+/* Main Grid Item Layout */
+.item-1 { grid-column: 1 / span 2; grid-row: 1 / span 2; background-color: var(--card-bg-dark); justify-content: space-between; }
+.item-2 { grid-column: 3 / span 1; grid-row: 1 / span 2; padding: 0; }
+.item-3 { grid-column: 4 / span 1; grid-row: 1 / span 3; background-color: var(--card-bg-dark); padding: 0; }
+.item-4 { grid-column: 1 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-dark); justify-content: space-between; }
+.item-5 { grid-column: 2 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-light); color: var(--text-color-light); justify-content: space-between; }
+.item-6 { grid-column: 3 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-dark); justify-content: space-between; align-items: flex-start; }
+.item-socials { grid-column: 4 / span 1; grid-row: 4 / span 1; background-color: var(--card-bg-dark); justify-content: center; align-items: center; }
+
+/* Card-specific content styles */
+.item-1 .decorative-icon { align-self: flex-end; margin-bottom: auto; color: var(--accent-color); }
+.item-1 h1 { font-family: var(--font-serif); font-size: 3.5rem; line-height: 1.2; margin: 0; max-width: 90%; }
+.item-4 .decorative-icon-small { width: 40px; height: 40px; color: var(--accent-color); }
+.item-4 p { font-size: 0.9rem; line-height: 1.6; margin-top: auto; }
+.item-5 p { font-size: 0.9rem; font-weight: 500; }
+.item-5 .contact-text { font-family: var(--font-serif); font-size: 2.2rem; line-height: 1.2; margin: 0; }
+.item-5 .icon-link { position: absolute; top: 1.5rem; right: 1.5rem; }
+.item-6 p { font-size: 0.9rem; margin-bottom: auto;}
+.item-6 .contact-text-small { font-family: var(--font-serif); font-size: 1.8rem; }
+.item-6 .icon-link { align-self: flex-end; }
+
+/* Sidebar */
+.sidebar-content { display: flex; flex-direction: column; height: 100%; }
+.sidebar-item {
+    padding: 1.75rem 2rem; border-bottom: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 1.1rem; font-weight: 500; transition: background-color 0.3s ease;
+    color: var(--accent-color); flex-shrink: 0;
+}
+.sidebar-item:hover { background-color: #33332d; }
+.sidebar-image-container {
+    flex-grow: 1; min-height: 200px; position: relative;
+    border-bottom: 1px solid var(--border-color); padding: 1.5rem;
+    display: flex; justify-content: flex-end; align-items: flex-end;
+}
+.view-more-btn {
+    background: rgba(26, 26, 23, 0.5); backdrop-filter: blur(5px);
+    color: var(--text-color-dark); padding: 0.5rem 1rem;
+    border-radius: 99px; font-size: 0.9rem; text-decoration: none;
+    border: 1px solid var(--border-color);
+}
+.social-links-card {
+    display: flex; justify-content: center; align-items: center; gap: 1.5rem;
+}
+.social-links-card a { color: var(--accent-color); text-decoration: none; transition: color 0.3s; }
+.social-links-card a:hover { color: #fff; }
+
+/* Placeholder Sections */
+.placeholder-section { min-height: 60vh; display: flex; align-items: center; justify-content: center; border-top: 1px solid var(--border-color); box-sizing: border-box; }
+.placeholder-section h1 { font-family: var(--font-serif); font-size: 4rem; color: #555; }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    #home { height: auto; padding-bottom: 2rem; }
+    .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+    .bento-item { grid-column: span 1 !important; grid-row: auto !important; min-height: 300px; }
+}
+@media (max-width: 768px) {
+    .header-nav { display: none; }
+    .item-1 h1 { font-size: 2.8rem; }
+}
