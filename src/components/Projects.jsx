@@ -173,7 +173,7 @@ export default function Projects() {
                 </div>
                 <div className="certs-right">
                     {certificates.map((cert, index) => (
-                        <div key={cert.title} ref={refs.current[index]} className={cert-card ${index === activeIndex ? 'is-active' : ''}}>
+                        <div key={cert.title} ref={refs.current[index]} className={`cert-card ${index === activeIndex ? 'is-active' : ''}`}>
                             <h2 className="cert-title">{cert.title}</h2>
                             <p className="cert-issuer">Issued by: {cert.issuer}</p>
                             <p className="cert-description">{cert.description}</p>
