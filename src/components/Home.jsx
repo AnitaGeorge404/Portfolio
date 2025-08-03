@@ -150,12 +150,26 @@ export default function Home({ scrollTo }) {
                         whileHover={{ scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 10 }}
                     />
-                    {/* --- RESUME BUTTON --- */}
+                    {/* --- RESUME BUTTON (INLINE STYLES) --- */}
                     <motion.a
-                        href="/path-to-your/resume.pdf" /* <-- ❗️ UPDATE THIS PATH */
+                        href="/assets/RESUME.pdf" /* <-- ❗️ UPDATE THIS PATH */
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="absolute bottom-4 right-4 bg-gray-900/70 backdrop-blur-sm text-white text-xs font-semibold py-2 px-4 rounded-full border border-gray-600 shadow-lg"
+                        style={{
+                            position: 'absolute',
+                            bottom: '1rem',
+                            right: '1rem',
+                            backgroundColor: 'rgba(17, 24, 39, 0.7)',
+                            backdropFilter: 'blur(4px)',
+                            color: 'white',
+                            fontSize: '0.75rem',
+                            fontWeight: '600',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '9999px',
+                            border: '1px solid #4B5563',
+                            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+                            textDecoration: 'none',
+                        }}
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(17, 24, 39, 0.9)' }}
                         whileTap={{ scale: 0.95 }}
                     >
@@ -183,15 +197,14 @@ export default function Home({ scrollTo }) {
                     <p>Full-stack developer and engineering student at IIITK, building clean, user-focused digital experiences.</p>
                 </motion.div>
 
-                {/* Certificates Card */}
                 <motion.div className="bento-item item-5" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
-                    <p>The How</p>
+                    <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem" }}>The How</p>
                     <h2 className="contact-text">Skills</h2>
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
                 </motion.div>
 
                 {/* Contact Card */}
-                <motion.div className="bento-item item-6" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <motion.div className="bento-item item-6" styles ={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>

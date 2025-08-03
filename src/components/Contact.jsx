@@ -169,7 +169,7 @@ export default function Contact() {
                     <div className="contact-card socials-card">
                         <h3>Find me on</h3>
                         <div className="social-links-list">
-                            <a href="#" className="social-link">
+                            <a href="https://www.linkedin.com/in/anita-george-8b8334326/" target = "_blank" className="social-link">
                                 <span className="social-link-icon"><SocialLinkedIn /> LinkedIn</span>
                                 <ArrowIcon />
                             </a>
@@ -177,7 +177,7 @@ export default function Contact() {
                                 <span className="social-link-icon"><SocialInstagram /> Instagram</span>
                                 <ArrowIcon />
                             </a>
-                            <a href="#" className="social-link">
+                            <a href="https://x.com/AnitaGeorge1806"  target = "_blank" className="social-link">
                                 <span className="social-link-icon"><SocialX /> X / Twitter</span>
                                 <ArrowIcon />
                             </a>

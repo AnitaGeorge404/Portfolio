@@ -123,7 +123,7 @@ const Certificates = () => {
           text-align: center;
           max-width: 750px;
           margin: 0 auto 5rem auto;
-          padding: 0 1rem;
+          padding: 0 1rem;font-size: 1.1rem;
         }
 
         .main-heading {
