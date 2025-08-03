@@ -1,65 +1,203 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import TextCursor from './TextCursor';
 import { ArrowIcon, DecorativeIcon, DropdownIcon, SocialX, SocialInstagram, SocialLinkedIn } from './icons';
 
+const projectData = [
+    {
+        id: 1,
+        title: 'Project Alpha',
+        imageUrl: 'https://placehold.co/600x400/3498db/ffffff?text=Project+Alpha',
+        imageAlt: 'Screenshot of Project Alpha',
+    },
+    {
+        id: 2,
+        title: 'Project Beta',
+        imageUrl: 'https://placehold.co/600x400/2ecc71/ffffff?text=Project+Beta',
+        imageAlt: 'Screenshot of Project Beta',
+    },
+    {
+        id: 3,
+        title: 'Project Gamma',
+        imageUrl: 'https://placehold.co/600x400/e74c3c/ffffff?text=Project+Gamma',
+        imageAlt: 'Screenshot of Project Gamma',
+    },
+];
 export default function Home({ scrollTo }) {
+    const DropdownIcon = () => (
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="transition-transform duration-300"
+    >
+        <path
+            d="M6 9L12 15L18 9"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+const HoverAccordion = () => {
+    // State to track which project accordion is open. 'null' means none are open.
+    const [openProject, setOpenProject] = useState(null);
+
+    return (
+        <div className="w-full max-w-sm mx-auto bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-4 border border-gray-700 text-gray-50">
+            <h2 style={{paddingLeft:'1.5rem'}}>Featured Work</h2>
+            <div className="sidebar-content space-y-2">
+                {projectData.map((project) => (
+                    // We use onMouseEnter and onMouseLeave on the parent container
+                    // to control the hover state for the entire item.
+                    <div
+                        key={project.id}
+                        className="project-accordion-item rounded-lg overflow-hidden cursor-pointer"
+                        onMouseEnter={() => setOpenProject(project.id)}
+                        onMouseLeave={() => setOpenProject(null)}
+                    >
+                        {/* The clickable header for each project */}
+                        <motion.div
+                            className="sidebar-item flex justify-between items-center p-3"
+                            whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+                        >
+                            <span className="font-medium text-gray-200">{project.title}</span>
+                            {/* The icon rotates smoothly based on the open state */}
+                            <motion.div animate={{ rotate: openProject === project.id ? 180 : 0 }}>
+                                <DropdownIcon />
+                            </motion.div>
+                        </motion.div>
+
+                        <AnimatePresence>
+                            {openProject === project.id && (
+                                <motion.div
+                                    className="sidebar-image-container"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                                >
+                                    <div className="p-3 pt-0">
+                                        <img src={project.imageUrl} alt={project.imageAlt} className="rounded-md w-full object-cover"/>
+                                        <motion.a 
+                                            href="#" 
+                                            className="view-more-btn block text-center w-full mt-3 bg-blue-600 text-white py-2 rounded-lg font-semibold" 
+                                            whileHover={{scale: 1.05, backgroundColor: '#2563EB'}} // bg-blue-700
+                                            whileTap={{scale: 0.95}}
+                                        >
+                                            View Details
+                                        </motion.a>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+    // State to track which project dropdown is currently open.
+    const [openProject, setOpenProject] = useState(projectData[0].id);
+
+    // Animation variants for the main grid container
+    const gridVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                when: "beforeChildren",
+                staggerChildren: 0.1,
+            },
+        },
+    };
+
+    // Animation variants for each item in the grid
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: { type: 'spring', stiffness: 120 }
+        },
+    };
+    
+    // Hover/Tap animations for interactive items
+    const interactiveAnimations = {
+        whileHover: { scale: 1.03, y: -5, zIndex: 10 },
+        whileTap: { scale: 0.97 },
+        transition: { type: "spring", stiffness: 300, damping: 15 },
+    };
+
     return (
         <section id="home">
-            <div className="bento-grid">
-                {/* Main Intro Card */}
-                <div className="bento-item item-1" onClick={() => scrollTo('about')}>
-                    <div className="decorative-icon"><DecorativeIcon /></div>
-                    <h1>Creative direction grounded in clarity and emotion.</h1>
-                </div>
+            <div style={{position:'fixed', top:0, left:0, zIndex:10000, height:'100vh', width:'100vw'}}>
+                <TextCursor/>
+            </div>
+            
+            <motion.div 
+                className="bento-grid"
+                variants={gridVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                {/* Item 1 */}
+                <motion.div className="bento-item item-1" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1, transition: { delay: 0.2, type: 'spring' } }} className="decorative-icon"><DecorativeIcon /></motion.div>
+                    <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}>Crafting thoughtful products from pixel to production</motion.h1>
+                </motion.div>
 
-                {/* Portrait Card */}
-                <div className="bento-item item-2">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop" alt="Portrait of Mira Chen" />
-                </div>
+                {/* Item 2 - Image with a subtle zoom on hover */}
+                <motion.div className="bento-item item-2" variants={itemVariants} whileHover={{scale: 1.03}} transition={interactiveAnimations.transition}>
+                   <motion.img 
+                        src="/assets/WhatsApp Image 2025-08-02 at 23.44.52.jpeg" 
+                        alt="Portrait of Anita George"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{type: "spring", stiffness: 200, damping: 10}}
+                    /> 
+                </motion.div>
 
-                {/* Sidebar Card */}
-                <div className="bento-item item-3" onClick={() => scrollTo('projects')}>
-                    <div className="sidebar-content">
-                        <div className="sidebar-item">Soft Form <DropdownIcon /></div>
-                        <div className="sidebar-image-container">
-                             <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1916&auto=format&fit=crop" alt="Modern armchair"/>
-                             <a href="#" className="view-more-btn">View More</a>
-                        </div>
-                        <div className="sidebar-item">Balm & Body <DropdownIcon /></div>
-                        <div className="sidebar-item">Ritual Stone <DropdownIcon /></div>
-                        <div className="sidebar-item">Morning Coffee <DropdownIcon /></div>
-                        <div className="sidebar-item">Cliffside Rest <DropdownIcon /></div>
-                    </div>
-                </div>
-
-                {/* NEW Socials Card */}
-                <div className="bento-item item-socials" onClick={() => scrollTo('contact')}>
+                {/* Item 3 - Functional Projects Accordion (Now works on Hover) */}
+                <motion.div className="bento-item item-3" variants={itemVariants} style={{zIndex:10001}}>
+                    <HoverAccordion />
+                </motion.div>
+                
+                {/* Socials Card */}
+                <motion.div className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="social-links-card">
-                        <a href="#"><SocialX /></a>
-                        <a href="#"><SocialInstagram /></a>
-                        <a href="#"><SocialLinkedIn /></a>
+                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
+                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
+                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialLinkedIn /></motion.a>
                     </div>
-                </div>
+                </motion.div>
                 
                 {/* Bio Card */}
-                <div className="bento-item item-4" onClick={() => scrollTo('about')}>
+                <motion.div className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="decorative-icon-small"><DecorativeIcon size={40} /></div>
                     <p>Mira Chen is a creative director specializing in brand storytelling and visual identity for fashion, beauty, and lifestyle.</p>
-                </div>
+                </motion.div>
 
                 {/* Certificates Card */}
-                <div className="bento-item item-5" onClick={() => scrollTo('certificates')}>
+                <motion.div className="bento-item item-5" onClick={() => scrollTo('certificates')} variants={itemVariants} {...interactiveAnimations}>
                     <p>Have some questions?</p>
                     <h2 className="contact-text">Certificates</h2>
-                    <div className="icon-link"><ArrowIcon /></div>
-                </div>
+                    <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
+                </motion.div>
 
                 {/* Contact Card */}
-                <div className="bento-item item-6" onClick={() => scrollTo('contact')}>
-                     <p>Let's talk</p>
-                     <h2 className="contact-text-small">Contact me</h2>
-                     <div className="icon-link"><ArrowIcon /></div>
-                </div>
-            </div>
+                <motion.div className="bento-item item-6" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                     <motion.h2 className="contact-headline-visual" initial={{y: 20, opacity: 0}} animate={{y: 0, opacity: 1, transition: {delay: 0.6}}}>
+                        Let's work together on your next project
+                     </motion.h2>
+                     <motion.div className="contact-email-visual" initial={{y: 20, opacity: 0}} animate={{y: 0, opacity: 1, transition: {delay: 0.7}}} whileHover={{scale: 1.05}} whileTap={{scale: 0.95}}>
+                        <span className="icon-copy-placeholder"></span>
+                        <p>georgeanita404@gmail.com</p>
+                     </motion.div>
+                </motion.div>
+            </motion.div>
         </section>
     );
 }
