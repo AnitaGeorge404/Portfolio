@@ -1,35 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// The Redesigned Certificates Component
+// The Redesigned Projects Component with your data
 export default function Projects() {
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const certificates = [
+    // --- YOUR PROJECTS ADDED HERE ---
+    const projects = [
         {
-            title: "AWS Certified Cloud Practitioner",
-            issuer: "Amazon Web Services",
-            description: "Validated foundational, high-level understanding of AWS Cloud, services, and terminology. This certification is a good starting point for individuals seeking to build a career in cloud computing.",
-            tech: ["Cloud Concepts", "Security & Compliance", "AWS Services", "Billing & Pricing"],
-            imageUrl: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format&fit=crop"
+            title: "DelAI - Dynamic Route Optimization",
+            description: "An award-winning AI platform that optimizes last-mile delivery by integrating real-time geospatial data with predictive analytics. The system dynamically adjusts routes based on live traffic, reducing delivery times by 22%.",
+            tech: ["React.js", "Leaflet.js", "Gemini API", "OpenStreetMap", "OSRM"],
+            imageUrl: "/assets/2.png",
+            link: "#"
         },
         {
-            title: "Certified Professional in UX Design",
-            issuer: "Nielsen Norman Group",
-            description: "Demonstrated expertise in user experience research, interaction design, and usability testing. This certification covers the full lifecycle of UX, from user needs analysis to high-fidelity prototyping.",
-            tech: ["User Research", "Interaction Design", "Wireframing", "Prototyping", "Usability Testing"],
-            imageUrl: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format&fit=crop"
+            title: "LawGorithm - Public Safety Platform",
+            description: "An AI-powered PWA that enhances public safety with real-time threat detection, predictive crime heatmaps, and automated emergency alerts. It also provides on-demand legal guidance via an AI chatbot.",
+            tech: ["Next.js", "React.js", "Gemini AI", "GCP", "Supabase", "OpenCV", "Computer Vision"],
+            imageUrl: "/assets/1.png",
+            link: "#"
         },
         {
-            title: "Advanced React & GraphQL",
-            issuer: "Wes Bos Academy",
-            description: "Completed an intensive course on building modern, full-stack JavaScript applications using advanced React patterns, GraphQL APIs, and server-side rendering.",
-            tech: ["React.js", "GraphQL", "Apollo Client", "Node.js", "Prisma", "Next.js"],
-            imageUrl: "https://images.unsplash.com/photo-1599658880436-c61792e70672?q=80&w=2070&auto=format&fit=crop"
+            title: "VantaAI - Digital Guardian",
+            description: "A 2nd-place winning web app designed to combat image-based abuse like deepfakes. It empowers users with proactive protection via watermarking, AI-powered web scanning, and automated complaint generation.",
+            tech: ["React.js", "Node.js", "Python", "Gemini API", "Supabase", "OpenCV"],
+            imageUrl: "/assets/3.png",
+            link: "#"
         }
     ];
 
     const refs = useRef([]);
-    refs.current = certificates.map((_, i) => refs.current[i] ?? React.createRef());
+    refs.current = projects.map((_, i) => refs.current[i] ?? React.createRef());
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -37,7 +38,9 @@ export default function Projects() {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const index = refs.current.findIndex(ref => ref.current === entry.target);
-                        setActiveIndex(index);
+                        if (index !== -1) {
+                            setActiveIndex(index);
+                        }
                     }
                 });
             },
@@ -50,139 +53,205 @@ export default function Projects() {
 
         return () => {
             refs.current.forEach(ref => {
-                if (ref.current) {
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                    observer.unobserve(ref.current);
-                }
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                if (ref.current) observer.unobserve(ref.current);
             });
         };
     }, []);
 
     return (
-        <section id="certificates" className="certificates-section">
+        <section id="projects" className="projects-section">
             <style>{`
-                /* --- CERTIFICATES SECTION STYLES --- */
-                .certificates-section {
-                    background-color: #1A1A17;
-                    padding: 4rem 2rem;
-                    border-top: 1px solid #3a3a35;
+                .projects-section {
+                    background-color: #121212; /* Slightly darker background */
+                    padding: 6rem 2rem;
+                    border-top: 1px solid #2a2a2a;
+                    font-family: 'Inter', sans-serif; /* Using a modern sans-serif font */
                 }
-                .certificates-container {
+                
+                .section-heading {
+                    max-width: 50rem;
+                    margin: 0 auto 5rem auto; /* Increased bottom margin */
+                    text-align: center;
+                }
+                .section-heading h2 {
+                    font-family: 'Playfair Display', serif;
+                    font-size: 3.5rem; /* Larger heading */
+                    color: #F5F5F5;
+                    margin-bottom: 1rem;
+                    font-weight: 600;
+                }
+                .section-heading p {
+                    font-size: 1.125rem; /* Slightly larger text */
+                    line-height: 1.8;
+                    color: #a0a0a0;
+                }
+
+                .projects-container {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    gap: 4rem;
-                    max-width: 80rem; /* 1280px */
+                    gap: 5rem; /* Increased gap */
+                    max-width: 80rem;
                     margin: 0 auto;
                 }
-                /* Left Column - Sticky Image */
-                .certs-left {
+                
+                .projects-left {
                     position: sticky;
-                    top: 100px;
-                    height: calc(100vh - 140px);
+                    top: 120px;
+                    height: calc(100vh - 160px);
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                 }
-                .certs-image-preview {
+                .projects-image-preview {
                     position: relative;
                     width: 100%;
-                    height: 80%;
-                    border-radius: 1.5rem;
+                    height: 85%; /* Increased height */
+                    border-radius: 1rem;
                     overflow: hidden;
-                    border: 1px solid #3a3a35;
+                    border: 1px solid #2a2a2a;
+                    background: #1a1a1a;
                 }
-                .certs-image {
+                .projects-image {
                     position: absolute;
                     top: 0; left: 0;
                     width: 100%; height: 100%;
                     object-fit: cover;
+                    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform: scale(1.05); /* Slight zoom for active image */
                 }
-                /* Right Column - Scrollable Details */
-                .certs-right {
+                .projects-image.is-active {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                
+                .projects-right {
                     display: flex;
                     flex-direction: column;
                 }
-                .cert-card {
+                .project-card {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    min-height: 80vh;
+                    min-height: 90vh; /* Increased min-height */
                     padding: 2rem 0;
-                    opacity: 0.4;
-                    transition: opacity 0.5s ease;
+                    opacity: 0.35;
+                    transform: translateY(20px);
+                    transition: opacity 0.5s ease, transform 0.5s ease;
                 }
-                .cert-card.is-active { opacity: 1; }
-                .cert-title {
+                .project-card.is-active { 
+                    opacity: 1; 
+                    transform: translateY(0);
+                }
+                .project-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: 2.5rem;
-                    margin-bottom: 1rem;
-                    color: #EAE8E3;
-                }
-                .cert-issuer {
-                    font-family: 'Plus Jakarta Sans', sans-serif;
-                    font-size: 1rem;
-                    font-weight: 500;
-                    color: #C4BFB8;
+                    font-size: 2.75rem;
                     margin-bottom: 1.5rem;
+                    color: #EAE8E3;
+                    font-weight: 500;
                 }
-                .cert-description {
-                    font-size: 1rem;
-                    line-height: 1.7;
-                    color: #b0aba4;
-                    max-width: 90%;
+                .project-description {
+                    font-size: 1.05rem;
+                    line-height: 1.8;
+                    color: #a0a0a0;
+                    max-width: 95%;
+                    margin-bottom: 2rem;
                 }
-                .cert-tech-list {
+                .project-tech-list {
                     display: flex;
                     flex-wrap: wrap;
-                    gap: 0.5rem;
-                    margin-top: 2rem;
+                    gap: 0.75rem;
+                    margin: 0;
                     padding: 0;
                     list-style-type: none;
                 }
-                .cert-tech-item {
-                    background-color: #292925;
-                    color: #C4BFB8;
-                    padding: 0.5rem 1rem;
+                .project-tech-item {
+                    background-color: rgba(255, 255, 255, 0.05);
+                    color: #c4c4c4;
+                    padding: 0.6rem 1.2rem;
                     border-radius: 9999px;
                     font-size: 0.875rem;
-                    border: 1px solid #3a3a35;
+                    border: 1px solid #333;
                     font-weight: 500;
+                    transition: all 0.2s ease;
+                }
+                .project-tech-item:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    border-color: #555;
+                    color: #fff;
                 }
 
-                /* Responsive */
+                /* --- NEW: Link Button --- */
+                .project-link {
+                    display: inline-flex;
+                    align-items: center;
+                    margin-top: 2.5rem;
+                    color: #F5F5F5;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    transition: color 0.3s ease;
+                }
+                .project-link:hover {
+                    color: #fff;
+                }
+                .project-link .arrow {
+                    margin-left: 0.5rem;
+                    transition: transform 0.3s ease;
+                }
+                .project-link:hover .arrow {
+                    transform: translateX(5px);
+                }
+
+                @media (max-width: 992px) {
+                    .projects-container { gap: 2rem; }
+                    .project-title { font-size: 2.25rem; }
+                }
+
                 @media (max-width: 768px) {
-                    .certificates-container { grid-template-columns: 1fr; }
-                    .certs-left { position: relative; top: 0; height: 50vh; order: 1; }
-                    .certs-right { order: 2; }
-                    .cert-card { min-height: auto; padding: 4rem 0; opacity: 1; }
+                    .projects-container { grid-template-columns: 1fr; }
+                    .projects-left { position: relative; top: 0; height: 50vh; order: 1; }
+                    .projects-right { order: 2; }
+                    .project-card { min-height: auto; padding: 4rem 0; opacity: 1; transform: translateY(0); }
+                    .section-heading h2 { font-size: 2.75rem; }
                 }
             `}</style>
-            <div className="certificates-container">
-                <div className="certs-left">
-                    <div className="certs-image-preview">
-                        {certificates.map((cert, index) => (
+
+            <div className="section-heading">
+                <h2>Crafted with Code</h2>
+                <p>
+                    I believe the best way to learn is by building. This section showcases a selection of my work, demonstrating my ability to transform ideas into functional, user-friendly, and performant applications.
+                </p>
+            </div>
+
+            <div className="projects-container">
+                <aside className="projects-left">
+                    <div className="projects-image-preview">
+                        {projects.map((project, index) => (
                             <img
-                                key={cert.imageUrl}
-                                src={cert.imageUrl}
-                                alt={cert.title}
-                                className="certs-image"
-                                style={{ opacity: index === activeIndex ? 1 : 0, transition: 'opacity 0.6s ease' }}
+                                key={project.imageUrl}
+                                src={project.imageUrl}
+                                alt={project.title}
+                                className={`projects-image ${index === activeIndex ? 'is-active' : ''}`}
+                                style={{ opacity: index === activeIndex ? 1 : 0 }}
                             />
                         ))}
                     </div>
-                </div>
-                <div className="certs-right">
-                    {certificates.map((cert, index) => (
-                        <div key={cert.title} ref={refs.current[index]} className={`cert-card ${index === activeIndex ? 'is-active' : ''}`}>
-                            <h2 className="cert-title">{cert.title}</h2>
-                            <p className="cert-issuer">Issued by: {cert.issuer}</p>
-                            <p className="cert-description">{cert.description}</p>
-                            <ul className="cert-tech-list">
-                                {cert.tech.map((tech) => <li key={tech} className="cert-tech-item">{tech}</li>)}
+                </aside>
+                <main className="projects-right">
+                    {projects.map((project, index) => (
+                        <article key={project.title} ref={refs.current[index]} className={`project-card ${index === activeIndex ? 'is-active' : ''}`}>
+                            <h3 className="project-title">{project.title}</h3>
+                            <p className="project-description">{project.description}</p>
+                            <ul className="project-tech-list">
+                                {project.tech.map((tech) => <li key={tech} className="project-tech-item">{tech}</li>)}
                             </ul>
-                        </div>
+                            <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
+                                View Project
+                                <span className="arrow">→</span>
+                            </a>
+                        </article>
                     ))}
-                </div>
+                </main>
             </div>
         </section>
     );

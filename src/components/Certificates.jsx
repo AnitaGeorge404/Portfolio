@@ -1,52 +1,46 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 const Certificates = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
-  
-  // Sample projects data (gradient property removed)
-  const projects = [
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  const certificates = [
     {
-      id: 1,
-      title: "Full-Stack AI Development",
-      period: "Jan 2025 - Apr 2025",
-      description: "Engineered an award-winning AI-powered animal breed recognition platform that integrated Google Cloud Vision, Wikipedia, and GBIF APIs for dynamic wildlife exploration.",
-      category: "AI Development"
+      "id": 1,
+      "title": "IBM Full Stack Software Developer",
+      "issuer": "IBM",
+      "period": "May 15, 2025",
+      "description": "A professional certificate awarded for completing 15 courses on Cloud Native Applications, including hands-on experience with React, Node.js, Python, Containers, and Microservices.",
+      "category": "Full Stack",
+      // --- FIX: Added a placeholder link. The button now appears for this certificate. ---
+      "verificationLink": "https://coursera.org/verify/professional-cert/YOUR_ID_HERE"
     },
     {
-      id: 2,
-      title: "Full-Stack Development",
-      period: "August 2024 - January 2025",
-      description: "Built a comprehensive full-stack application using modern technologies including React, Node.js, and cloud services for scalable web solutions.",
-      category: "Web Development"
+      "id": 2,
+      "title": "Google Data Analytics",
+      "issuer": "Google",
+      "period": "May 16, 2025",
+      "description": "Completed eight courses designed to prepare for introductory-level roles in Data Analytics, gaining competency in spreadsheets, SQL, Tableau, and R.",
+      "category": "Data Analytics",
+      "verificationLink": "https://coursera.org/verify/professional-cert/QTF4JGCQJENT"
     },
     {
-      id: 3,
-      title: "Future of Data Hackathon 2024",
-      period: "August 2024 - September 2024",
-      description: "Developed innovative data visualization tools and machine learning models to solve real-world data challenges in a competitive hackathon environment.",
-      category: "Data Science"
+      "id": 3,
+      "title": "Meta Front-End Developer",
+      "issuer": "Meta",
+      "period": "May 12, 2025",
+      "description": "A 9-course program preparing for an entry-level career as a front-end developer, covering JavaScript, HTML, CSS, advanced React, and version control.",
+      "category": "Front-End",
+      "verificationLink": "https://coursera.org/verify/professional-cert/WJH5G1ZEP6OB"
     },
     {
-      id: 4,
-      title: "RevUC Hackathon 2024",
-      period: "February 2024",
-      description: "Created a revolutionary fintech solution that streamlines payment processes and enhances user experience through innovative UI/UX design.",
-      category: "Fintech"
-    },
-    {
-      id: 5,
-      title: "MakeUC Hackathon 2023",
-      period: "October 2023",
-      description: "FaunaFinder: AI-Powered Animal Breed Recognition - Winner Best Use of AI in Education at MakeUC Hackathon 2023.",
-      category: "AI/ML"
-    },
-    {
-      id: 6,
-      title: "First Personal Portfolio Website",
-      period: "June 2023 - August 2023",
-      description: "Built a personal portfolio website using FARM stack technologies that marked my first large-scale full-stack development project.",
-      category: "Portfolio"
+      "id": 4,
+      "title": "Data Science with Python",
+      "issuer": "Finlatics",
+      "period": "July 31, 2025",
+      "description": "Gained work experience in Data Science with Python. Use Credential ID: DS-9150648d3d2d106c.",
+      "category": "Data Science",
+      "verificationLink": "https://finlatics.com/credentialscheck"
     }
   ];
 
@@ -57,101 +51,126 @@ const Certificates = () => {
   });
 
   // Re-usable Card Component
-  const Card = ({ project, index, progress, range, targetScale }) => {
+  const Card = ({ certificate, index, progress }) => {
     const cardRef = useRef(null);
-    const { scrollYProgress: cardProgress } = useScroll({
-      target: cardRef,
-      offset: ["start end", "start start"],
+    const { scrollYProgress: cardScrollProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "start 0.75"],
     });
-
-    const scale = useTransform(progress, range, [1, targetScale]);
-    const cardScale = useTransform(cardProgress, [0, 1], [0.8, 1]);
-    const cardOpacity = useTransform(cardProgress, [0, 0.5, 1], [0, 0.5, 1]);
-    const cardY = useTransform(cardProgress, [0, 1], [100, 0]);
-    const stackOffset = index * 60;
+    
+    const scale = useTransform(
+      progress,
+      [index * 0.25, 1],
+      [1, 1 - (certificates.length - index) * 0.05]
+    );
+    
+    const opacity = useTransform(cardScrollProgress, [0, 0.5], [0, 1]);
+    const y = useTransform(cardScrollProgress, [0, 0.5], [100, 0]);
 
     return (
-      <div 
+      <motion.div
         ref={cardRef}
-        style={{
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'sticky',
-          top: `${stackOffset}px`,
+        className="card-container"
+        style={{ 
+          top: `calc(15vh + ${index * 50}px)`,
+          scale,
+          opacity,
+          y,
         }}
       >
         <motion.div
-          className="project-card"
-          style={{
-            scale: scale,
-            opacity: cardOpacity,
-            y: cardY,
+          className="certificate-card"
+          onClick={() => setSelectedCertificate(certificate)}
+          whileHover={{
+            translateY: -8,
+            boxShadow: '0 0 40px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.4)',
           }}
-          onClick={() => setSelectedProject(project)}
-          whileHover={{ 
-            scale: targetScale * 1.05,
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.4)',
-          }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div className="card-header">
             <div>
-              <h2 className="project-title">{project.title}</h2>
-              <p className="project-period">{project.period}</p>
+              <h2 className="certificate-title">{certificate.title}</h2>
+              <p className="certificate-issuer">Issued by {certificate.issuer} · {certificate.period}</p>
             </div>
-            <span className="project-category">{project.category}</span>
+            <span className="certificate-category">{certificate.category}</span>
           </div>
-          <p className="project-description">{project.description}</p>
+          <p className="certificate-description">{certificate.description}</p>
           <div className="card-footer">
-            <button className="learn-more-btn">Learn More →</button>
-            <button className="like-btn">
-              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.3651 1.35C15.3651 -0.65 12.0651 -0.35 10.0651 1.65C8.06506 -0.35 4.76506 -0.65 2.76506 1.35C0.765064 3.35 0.765064 6.65 2.76506 8.65L10.0651 15.95L17.3651 8.65C19.3651 6.65 19.3651 3.35 17.3651 1.35Z" fill="currentColor"/>
-              </svg>
-            </button>
+            <button className="action-btn">Details & Verification →</button>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     );
   };
 
   // Main Component Return
   return (
-    <>
-      {/* Styles are now self-contained and updated for a dark/black card theme */}
+    <div className="certificates-section">
+      {/* --- HEADING ADDED --- */}
+      <div className="heading-container">
+        <h2 className="main-heading">Validated Expertise </h2>
+        <p className="sub-heading">
+          I am committed to continuous learning and professional growth. These certifications from industry leaders validate my skills in development, data, and beyond.
+        </p>
+      </div>
+
       <style jsx>{`
-        .projects-container {
-          position: relative;
-          /* Set a height for the scroll container. 
-             Adjust this based on your bento grid layout. 
-             For example, '200vh' means the scroll animation will complete over twice the viewport height.
-          */
-          height: ${projects.length * 100}vh; 
+        .certificates-section {
+          padding-bottom: 5rem;
         }
 
-        .project-card {
-          width: 90%;
-          max-width: 800px;
-          height: 420px;
-          border-radius: 20px;
-          padding: 2.5rem;
+        .heading-container {
+          text-align: center;
+          max-width: 750px;
+          margin: 0 auto 5rem auto;
+          padding: 0 1rem;
+        }
+
+        .main-heading {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 1rem;
+          font-family: 'Playfair Display', serif;
+          font-size: 3.5rem;
+        }
+
+        .sub-heading {
+          font-size: 1.1rem;
+          color: rgba(255, 255, 255, 0.7);
+          line-height: 1.6;
+        }
+        
+        .scroll-container {
+          position: relative;
+          height: ${certificates.length * 100}vh;
+        }
+
+        .card-container {
+          position: sticky;
+          display: flex;
+          align-items: flex-start; 
+          justify-content: center;
+          padding: 0 1rem;
+        }
+
+        .certificate-card {
+          width: 100%;
+          max-width: 750px;
+          min-height: 380px;
+          border-radius: 24px;
+          padding: 2.5rem 3rem;
           cursor: pointer;
-          
-          /* --- KEY CHANGE: Black glassmorphism background for dark bento theme --- */
-          background: rgba(20, 20, 20, 0.6);
-          backdrop-filter: blur(20px);
+          background: rgba(25, 25, 25, 0.5);
+          backdrop-filter: blur(25px);
+          -webkit-backdrop-filter: blur(25px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-          
-          color: white; /* Ensure text is readable */
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+          color: #f0f0f0;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           transform-origin: center;
-          position: relative;
-          overflow: hidden;
         }
 
         .card-header {
@@ -159,111 +178,91 @@ const Certificates = () => {
           justify-content: space-between;
           align-items: flex-start;
           margin-bottom: 1.5rem;
+          gap: 1rem;
         }
 
-        .project-title {
-          font-size: 1.8rem;
+        .certificate-title {
+          font-size: 2rem;
           font-weight: 700;
-          color: white;
-          margin-bottom: 0.5rem;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          color: #ffffff;
+          margin-bottom: 0.25rem;
+          text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        .project-period {
+        .certificate-issuer {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.7);
           font-weight: 500;
         }
 
-        .project-category {
+        .certificate-category {
           background: rgba(255, 255, 255, 0.1);
-          padding: 0.6rem 1.2rem;
-          border-radius: 25px;
-          font-size: 0.85rem;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
           font-weight: 600;
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(5px);
           border: 1px solid rgba(255, 255, 255, 0.1);
+          flex-shrink: 0;
+          align-self: flex-start;
         }
 
-        .project-description {
+        .certificate-description {
           font-size: 1.1rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.95);
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.9);
           flex-grow: 1;
         }
 
         .card-footer {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
           align-items: center;
           margin-top: 2rem;
         }
 
-        .learn-more-btn {
-          background: rgba(255, 255, 255, 0.1);
+        .action-btn {
+          background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: white;
-          padding: 0.9rem 2rem;
+          color: rgba(255, 255, 255, 0.8);
+          padding: 0.8rem 1.5rem;
           border-radius: 12px;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-          font-size: 1rem;
+          font-size: 0.9rem;
         }
 
-        .learn-more-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .like-btn {
+        .action-btn:hover {
           background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 50%;
-          width: 55px;
-          height: 55px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
+          border-color: rgba(255, 255, 255, 0.4);
+          color: #ffffff;
         }
-
-        .like-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: scale(1.1) rotate(5deg);
-        }
-
-        /* --- MODAL STYLES --- */
+        
+        /* Modal Styles */
         .modal-overlay {
           position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.8);
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0, 0, 0, 0.7);
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 1000;
-          padding: 2rem;
-          backdrop-filter: blur(5px);
+          padding: 1rem;
+          backdrop-filter: blur(10px);
         }
 
         .modal-content {
-          /* --- KEY CHANGE: Updated modal background to match dark card theme --- */
           background: rgba(30, 30, 30, 0.8);
           border-radius: 20px;
-          padding: 3rem;
+          padding: 2.5rem;
           max-width: 600px;
           width: 100%;
-          backdrop-filter: blur(20px);
+          backdrop-filter: blur(30px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           position: relative;
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+          color: #f0f0f0;
         }
 
         .close-btn {
@@ -271,9 +270,8 @@ const Certificates = () => {
           top: 1rem;
           right: 1rem;
           background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: none;
           color: white;
-          font-size: 1.5rem;
           cursor: pointer;
           width: 40px;
           height: 40px;
@@ -282,7 +280,7 @@ const Certificates = () => {
           align-items: center;
           justify-content: center;
           transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
+          font-size: 1.5rem;
         }
 
         .close-btn:hover {
@@ -290,73 +288,78 @@ const Certificates = () => {
           transform: rotate(90deg);
         }
 
+        .verify-btn {
+          display: inline-block;
+          background: #fff;
+          color: #111;
+          padding: 0.9rem 2rem;
+          border-radius: 12px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          margin-top: 2rem;
+        }
+        
+        .verify-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+        }
+
         @media (max-width: 768px) {
-          .project-card {
-            width: 95%;
-            height: 450px;
-            padding: 2rem;
-          }
-          .project-title { font-size: 1.4rem; }
-          .project-description { font-size: 1rem; }
+          .main-heading { font-size: 2rem; }
+          .certificate-card { padding: 2rem; min-height: 400px; }
+          .certificate-title { font-size: 1.5rem; }
+          .certificate-description { font-size: 1rem; }
+          .card-header { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
 
-      {/* The component now starts directly with the scroll container */}
-      <div ref={container} className="projects-container">
-        {projects.map((project, i) => {
-          const targetScale = 1 - ((projects.length - i - 1) * 0.03);
-          return (
-            <Card
-              key={project.id}
-              project={project}
-              index={i}
-              progress={scrollYProgress}
-              range={[i * 0.15, 1]}
-              targetScale={targetScale}
-            />
-          );
-        })}
+      <div ref={container} className="scroll-container">
+        {certificates.map((cert, i) => (
+          <Card
+            key={cert.id}
+            certificate={cert}
+            index={i}
+            progress={scrollYProgress}
+          />
+        ))}
       </div>
       
-      {/* Modal for displaying project details */}
       <AnimatePresence>
-        {selectedProject && (
+        {selectedCertificate && (
           <motion.div
             className="modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
+            onClick={() => setSelectedCertificate(null)}
           >
             <motion.div
               className="modal-content"
-              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, y: 50 }}
-              transition={{type: 'spring', damping: 20, stiffness: 200}}
+              exit={{ scale: 0.9, opacity: 0, y: 30 }}
+              transition={{type: 'spring', damping: 25, stiffness: 300}}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
-                className="close-btn"
-                onClick={() => setSelectedProject(null)}
-              >
-                ×
-              </button>
+              <button className="close-btn" onClick={() => setSelectedCertificate(null)}>×</button>
               <div>
-                <h2 className="project-title">{selectedProject.title}</h2>
-                <p className="project-period" style={{marginBottom: '1rem'}}>{selectedProject.period}</p>
-                <span className="project-category" style={{marginBottom: '2rem', display: 'inline-block'}}>{selectedProject.category}</span>
-                <p className="project-description" style={{fontSize: '1.1rem', lineHeight: '1.8'}}>{selectedProject.description}</p>
-                <div style={{marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
-                  <button className="learn-more-btn">View Project</button>
-                  <button className="learn-more-btn">Source Code</button>
-                </div>
+                <span className="certificate-category" style={{marginBottom: '1rem', display: 'inline-block'}}>{selectedCertificate.category}</span>
+                <h2 className="certificate-title" style={{fontSize: '2.2rem'}}>{selectedCertificate.title}</h2>
+                <p className="certificate-issuer" style={{marginBottom: '1.5rem'}}>Issued by {selectedCertificate.issuer} · {selectedCertificate.period}</p>
+                <p className="certificate-description">{selectedCertificate.description}</p>
+                
+                {selectedCertificate.verificationLink && (
+                  <a href={selectedCertificate.verificationLink} target="_blank" rel="noopener noreferrer" className="verify-btn">
+                    Verify Certificate ↗
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 

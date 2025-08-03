@@ -9,8 +9,8 @@ export default function About() {
     const [isTyping, setIsTyping] = useState(false);
 
     const terminalContent = [
-        { prompt: "$ mira_chen:~$ whoami", content: ["• Mira Chen // Creative Director & Brand Strategist.", "• Specializing in visual identity for fashion, beauty, and lifestyle brands."] },
-        { prompt: "$ mira_chen:~$ core_philosophy", content: ["• Merging minimalism with emotional depth.", "• Crafting thoughtful, compelling design systems.", "• A belief that great design is not just seen, but felt."] }
+        { prompt: "$ AnitaGeorge:~$ whoami", content: ["•- Anita George // Full-Stack Developer & UI/UX Designer.- Specializing in creating seamless, data-driven web applications and intuitive user experiences. My expertise spans the entire stack, from crafting robust back-end APIs to designing pixel-perfect, front-end interfaces. I'm passionate about building products that are not just functional, but a joy to use."] },
+        { prompt: "$ AnitaGeorge:~$ core_philosophy", content: ["•- *Fusing Code with Design:* My work is driven by the philosophy that technology and design are two sides of the same coin. I believe in writing clean, functional code that powers elegant and accessible design, creating a cohesive and delightful user journey.- *Building for Impact:* I focus on developing thoughtful, scalable systems that solve genuine user problems. My passion lies in real-world applications that improve people's lives.- *People-First Approach:* At the end of the day, great software is not just about features, but about the people who use it. My design and development process is always centered on user empathy and creating meaningful interactions."] }
     ];
     const fullText = terminalContent.map(sec => sec.prompt + '\n' + sec.content.join('\n')).join('\n\n');
 
@@ -188,14 +188,15 @@ export default function About() {
             <div className="about-grid">
                 <div className="left-column">
                     <div className="about-card about-photo-card">
-                        A portrait of the creative director
+                        Beyond the Code
                     </div>
+
                     <div className="about-card about-philosophy-card">
-                        <h3>Core Philosophy</h3>
+                        <h3>Beyond the Code</h3>
                         <ul>
-                            <li>Merge minimalism with emotional depth.</li>
-                            <li>Craft thoughtful, compelling design systems.</li>
-                            <li>Believe that great design is not just seen, but felt.</li>
+                            <li>Crafting intuitive, user-centered experiences.</li>
+                            <li>Building robust systems designed for growth.</li>
+                            <li>Translating thoughtful design into performant code.</li>
                         </ul>
                     </div>
                 </div>

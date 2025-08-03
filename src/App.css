@@ -69,7 +69,7 @@ body {
 /* Card-specific content styles */
 .item-1 .decorative-icon { align-self: flex-end; margin-bottom: auto; color: var(--accent-color); }
 .item-1 h1 { font-family: var(--font-serif); font-size: 3.5rem; line-height: 1.2; margin: 0; max-width: 90%; }
-.item-4 .decorative-icon-small { width: 40px; height: 40px; color: var(--accent-color); }
+.item-4 .decorative-icon-small { width: 40px; height: 40px; margin-bottom: 15px; color: var(--accent-color); }
 .item-4 p { font-size: 0.9rem; line-height: 1.6; margin-top: auto; }
 .item-5 p { font-size: 0.9rem; font-weight: 500; }
 .item-5 .contact-text { font-family: var(--font-serif); font-size: 2.2rem; line-height: 1.2; margin: 0; }

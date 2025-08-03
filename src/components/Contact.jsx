@@ -161,8 +161,8 @@ export default function Contact() {
                         <h2>Let's start a conversation</h2>
                         <p style={{ color: '#b0aba4' }}>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision.</p>
                     </div>
-                    <a href="mailto:hello@mirachen.design" className="email-link">
-                        hello@mirachen.design
+                    <a href="mailto:georrgeanita404@gmail.com" className="email-link">
+                        georgeanita404@gmail.com
                     </a>
                 </div>
                 <div className="right-column">
@@ -194,7 +194,7 @@ export default function Contact() {
                 </div>
             </div>
             <footer className="site-footer">
-                <p>© 2025 Mira Chen. All Rights Reserved.</p>
+                <p>© 2025 Anita George. All Rights Reserved.</p>
             </footer>
         </section>
     );
