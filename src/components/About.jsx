@@ -9,8 +9,8 @@ export default function About() {
     const [isTyping, setIsTyping] = useState(false);
 
     const terminalContent = [
-        { prompt: "$ AnitaGeorge:~$ whoami", content: ["•- Anita George // Full-Stack Developer & UI/UX Designer.- Specializing in creating seamless, data-driven web applications and intuitive user experiences. My expertise spans the entire stack, from crafting robust back-end APIs to designing pixel-perfect, front-end interfaces. I'm passionate about building products that are not just functional, but a joy to use."] },
-        { prompt: "$ AnitaGeorge:~$ core_philosophy", content: ["•- *Fusing Code with Design:* My work is driven by the philosophy that technology and design are two sides of the same coin. I believe in writing clean, functional code that powers elegant and accessible design, creating a cohesive and delightful user journey.- *Building for Impact:* I focus on developing thoughtful, scalable systems that solve genuine user problems. My passion lies in real-world applications that improve people's lives.- *People-First Approach:* At the end of the day, great software is not just about features, but about the people who use it. My design and development process is always centered on user empathy and creating meaningful interactions."] }
+        { prompt: "$ AnitaGeorge:~$ who_am_i", content: [">Full-Stack Developer & UI/UX Designer.\n>Specializing in creating seamless, data-driven web applications and intuitive user experiences.\n>My expertise spans the entire stack, from crafting robust back-end APIs to designing pixel-perfect, front-end interfaces.\n>I'm passionate about building products that are not just functional, but a joy to use."] },
+        { prompt: "$ AnitaGeorge:~$ core_philosophy", content: [">Fusing Code with Design: My work is driven by the philosophy that technology and design are two sides of the same coin. I believe in writing clean, functional code that powers elegant and accessible design, creating a cohesive and delightful user journey.\n>Building for Impact: I focus on developing thoughtful, scalable systems that solve genuine user problems. My passion lies in real-world applications that improve people's lives.\n>People-First Approach: At the end of the day, great software is not just about features, but about the people who use it. My design and development process is always centered on user empathy and creating meaningful interactions."] }
     ];
     const fullText = terminalContent.map(sec => sec.prompt + '\n' + sec.content.join('\n')).join('\n\n');
 
@@ -54,8 +54,11 @@ export default function About() {
         return lines.map((line, index) => {
             if (line.startsWith('$')) {
                 return <div key={index} className="term-prompt-line"><span className="term-prompt-symbol">$</span><span className="term-prompt-command">{line.replace('$ ', '')}</span></div>;
-            } else if (line.startsWith('•')) {
-                return <div key={index} className="term-content-line"><span className="term-bullet-point">•</span><span className="term-bullet-text">{line.slice(1)}</span></div>;
+            } else if (line.startsWith('>')) {
+                return <div key={index} className="term-content-line indented">
+                    <span className="term-content-symbol">{'>'}</span>
+                    <span className="term-content-text">{line.substring(1)}</span>
+                </div>;
             } else if (line.trim() === '') {
                 return <div key={index} className="term-line empty"></div>;
             }
@@ -162,10 +165,13 @@ export default function About() {
                     color: #EAE8E3; font-family: 'Fira Code', monospace;
                     height: 100%; overflow-y: auto; box-sizing: border-box;
                 }
-                .term-prompt-line { display: flex; align-items: center; margin-bottom: 0.5rem; }
+                .term-prompt-line { display: flex; align-items: center; margin-bottom: 1rem; }
                 .term-prompt-symbol { color: #C4BFB8; margin-right: 0.75rem; }
-                .term-prompt-command { color: #EAE8E3; }
-                .term-content-line { margin-left: 1rem; margin-bottom: 0.25rem; }
+                .term-prompt-command { color: #EAE8E3; font-weight: 600; }
+                .term-content-line { margin-bottom: 0.5rem; display: flex; align-items: flex-start; }
+                .term-content-line.indented { margin-left: 2rem; }
+                .term-content-symbol { color: #C4BFB8; margin-right: 0.75rem; }
+                .term-content-text { color: rgba(234, 232, 227, 0.7); flex: 1; }
                 .term-bullet-point { color: #C4BFB8; }
                 .term-bullet-text { margin-left: 0.75rem; color: #b0aba4; }
                 .term-line.empty { height: 1rem; }
