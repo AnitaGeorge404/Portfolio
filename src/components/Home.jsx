@@ -205,7 +205,7 @@ export default function Home({ scrollTo }) {
                 </SpotlightCard>
 
                 {/* Contact Card */}
-                <SpotlightCard className="bento-item item-6" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard  className="bento-item item-6" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>
