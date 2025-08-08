@@ -132,7 +132,7 @@ return (
                                     display: grid;
                                     grid-template-columns: 1fr 2.5fr; 
                                     gap: 1rem;
-                                    width: 90%;
+                                    width: 95%;
                                     /* CHANGE: Reduced max-width to make the entire component and all cards smaller. */
                                     box-sizing: border-box;
                             }

@@ -79,7 +79,7 @@ export default function Projects() {
         <section id="projects" className="projects-section">
             <style>{`
                 .projects-section {
-                    background-color: #121212;
+                    background-color: #1A1A17;
                     padding: 6rem 2rem;
                     border-top: 1px solid #2a2a2a;
                     font-family: 'Inter', sans-serif;
