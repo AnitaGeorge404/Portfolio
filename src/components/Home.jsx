@@ -133,8 +133,6 @@ export default function Home() {
                 </SpotlightCard>
 
                 <SpotlightCard className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
-                                        <a style={{position:'fixed', top:0, left:0, zIndex:100, backgroundColor:'transparent', height:'100em', width:'100em'}} onClick={() => scrollTo('contact')}/>
-
                     <div className="social-links-card">
                         <motion.a href="https://x.com/anitageorge1806" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
                         <motion.a href="https://www.instagram.com/senorita._.anita/?next=%2F" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
@@ -146,13 +144,10 @@ export default function Home() {
 
                 <SpotlightCard className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="decorative-icon-small"><DecorativeIcon size={40} /></div>
-                    
                     <p>Full-stack developer and engineering student at IIITK, building clean, user-focused digital experiences.</p>
                 </SpotlightCard>
 
                 <SpotlightCard className="bento-item item-5" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
-                                        <a style={{position:'fixed', top:0, left:0, zIndex:100, backgroundColor:'transparent', height:'100em', width:'100em'}} onClick={() => scrollTo('skills')}/>
-
                     <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem", color: 'white' }}>The How</p>
                     <h2 style={{ fontSize: "3rem", marginTop: "-0.3rem", color: 'white', fontFamily: 'Playfair Display' }}>Skills</h2>
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
