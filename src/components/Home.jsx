@@ -128,7 +128,7 @@ export default function Home() {
                 </SpotlightCard>
 
                 {/* --- These items will be hidden on mobile via app.css --- */}
-                <SpotlightCard className="bento-item item-3" variants={itemVariants}>
+                <SpotlightCard className="bento-item item-3" variants={itemVariants}  onClick={() => scrollTo('projects')} {...interactiveAnimations}>
                     <HoverAccordion />
                 </SpotlightCard>
 
