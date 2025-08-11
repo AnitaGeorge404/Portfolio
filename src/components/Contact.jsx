@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 // --- SVG Icons for the component ---
@@ -69,7 +68,7 @@ export default function Contact() {
                     border-radius: 1.5rem;
                     padding: 2.5rem;
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    display: flex; /* Using flex to manage content */
+                    display: flex;
                     flex-direction: column;
                 }
                 .contact-card:hover {
@@ -96,6 +95,7 @@ export default function Contact() {
                     display: inline-block;
                     margin-top: 2rem;
                     transition: color 0.3s ease;
+                    word-break: break-all; /* Ensures long email doesn't overflow */
                 }
                 .email-link:hover {
                     color: #C4BFB8;
@@ -129,7 +129,7 @@ export default function Contact() {
                 .social-link:hover { color: #EAE8E3; }
                 .social-link-icon { display: flex; align-items: center; gap: 0.75rem; font-weight: 500;}
 
-                /* --- NEW STYLES for combined card --- */
+                /* --- STYLES for combined card --- */
                 .card-separator {
                     border-bottom: 1px solid #3a3a35;
                     margin: auto 0 1.5rem;
@@ -157,10 +157,37 @@ export default function Contact() {
                     font-size: 0.9rem;
                 }
 
-                /* Responsive */
+                /* --- RESPONSIVE STYLES --- */
                 @media (max-width: 768px) {
-                    .contact-grid { grid-template-columns: 1fr; }
-                    .contact-header h1 { font-size: 2.8rem; }
+                    .contact-section {
+                        padding: 3rem 1rem; /* Adjust padding for smaller screens */
+                    }
+                    .contact-grid { 
+                        grid-template-columns: 1fr; /* Stack cards vertically */
+                        gap: 1rem;
+                    }
+                    .contact-header {
+                        margin-bottom: 2.5rem; /* Reduce space below header */
+                    }
+                    .contact-header h1 { 
+                        font-size: 2.5rem; /* Make heading smaller */
+                    }
+                     .contact-header p {
+                        font-size: 1rem; /* Adjust paragraph font size */
+                    }
+                    .contact-card {
+                        padding: 1.5rem; /* Reduce card padding */
+                    }
+                    .contact-main h2 {
+                        font-size: 2rem; /* Adjust card heading */
+                    }
+                    .email-link {
+                        font-size: 1.2rem; /* Adjust email font size */
+                    }
+                    .site-footer {
+                        margin-top: 3rem; /* Reduce space above footer */
+                        padding: 0 1rem;
+                    }
                 }
             `}</style>
             <div className="contact-header">
@@ -211,8 +238,8 @@ export default function Contact() {
                         <div className="location-info">
                              <LocationIcon />
                              <div>
-                                <p className="location-phrase">Crafting code from the coast.</p>
-                                <p>Based in Kollam, Kerala.</p>
+                                 <p className="location-phrase">Crafting code from the coast.</p>
+                                 <p>Based in Kollam, Kerala.</p>
                              </div>
                         </div>
                     </div>
