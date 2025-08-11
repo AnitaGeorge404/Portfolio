@@ -4,10 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 export default function Skills() {
     
     const skillsData = {
-        frontend: ["JavaScript (ES6+)", "TypeScript", "React", "Next.js", "HTML5 & CSS3", "Tailwind CSS", "Framer Motion", "GSAP"],
-        backend: ["Node.js", "Express", "Python", "REST APIs", "GraphQL", "Prisma"],
-        databases: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Supabase"],
-        tools: ["Git & GitHub", "Docker", "CI/CD", "AWS", "Figma", "Jira"]
+        frontend: ["JavaScript", "React", "Vite", "HTML5 & CSS3", "Framer Motion", "GSAP",],
+        backend: ["Node.js", "Python", "REST APIs", "FastAPI", "Java","PHP"],
+        databases: ["PostgreSQL", "MySQL", "Firebase", "Supabase"],
+        tools: ["Git & GitHub", "CI/CD", "Figma","Canva", "Vercel", "Netlify"]
     };
 
     const sectionRef = useRef(null);
@@ -251,7 +251,7 @@ export default function Skills() {
                 {renderSkillCard("Backend", skillsData.backend, 
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V4"/><path d="M4 12H20"/></svg>, 
                 2)}
-                {renderSkillCard("Databases & ORMs", skillsData.databases, 
+                {renderSkillCard("Databases", skillsData.databases, 
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>, 
                 3)}
                 {renderSkillCard("Tools & Platforms", skillsData.tools, 

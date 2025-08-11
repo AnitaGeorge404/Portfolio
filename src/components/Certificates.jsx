@@ -6,41 +6,36 @@ const Certificates = () => {
 
   const certificates = [
     {
-      "id": 1,
-      "title": "IBM Full Stack Software Developer",
-      "issuer": "IBM",
-      "period": "May 15, 2025",
-      "description": "A professional certificate awarded for completing 15 courses on Cloud Native Applications, including hands-on experience with React, Node.js, Python, Containers, and Microservices.",
-      "category": "Full Stack",
-      // --- FIX: Added a placeholder link. The button now appears for this certificate. ---
-      "verificationLink": "https://coursera.org/verify/professional-cert/YOUR_ID_HERE"
-    },
-    {
       "id": 2,
       "title": "Google Data Analytics",
       "issuer": "Google",
-      "period": "May 16, 2025",
       "description": "Completed eight courses designed to prepare for introductory-level roles in Data Analytics, gaining competency in spreadsheets, SQL, Tableau, and R.",
       "category": "Data Analytics",
       "verificationLink": "https://coursera.org/verify/professional-cert/QTF4JGCQJENT"
     },
     {
-      "id": 3,
-      "title": "Meta Front-End Developer",
-      "issuer": "Meta",
-      "period": "May 12, 2025",
-      "description": "A 9-course program preparing for an entry-level career as a front-end developer, covering JavaScript, HTML, CSS, advanced React, and version control.",
-      "category": "Front-End",
-      "verificationLink": "https://coursera.org/verify/professional-cert/WJH5G1ZEP6OB"
+      "id": 1,
+      "title": "IBM Full Stack Software Developer",
+      "issuer": "IBM",
+      "description": "A professional certificate awarded for completing 15 courses on Cloud Native Applications, including hands-on experience with React, Node.js, Python, Containers, and Microservices.",
+      "category": "Full Stack",
+      "verificationLink": "https://coursera.org/verify/professional-cert/W6PO1OBDM8FN"
     },
     {
       "id": 4,
       "title": "Data Science with Python",
       "issuer": "Finlatics",
-      "period": "July 31, 2025",
       "description": "Gained work experience in Data Science with Python. Use Credential ID: DS-9150648d3d2d106c.",
       "category": "Data Science",
       "verificationLink": "https://finlatics.com/credentialscheck"
+    },
+    {
+      "id": 3,
+      "title": "Meta Front-End Developer",
+      "issuer": "Meta",
+      "description": "A 9-course program preparing for an entry-level career as a front-end developer, covering JavaScript, HTML, CSS, advanced React, and version control.",
+      "category": "Front-End",
+      "verificationLink": "https://coursera.org/verify/professional-cert/WJH5G1ZEP6OB"
     }
   ];
 
@@ -90,7 +85,7 @@ const Certificates = () => {
           <div className="card-header">
             <div>
               <h2 className="certificate-title">{certificate.title}</h2>
-              <p className="certificate-issuer">Issued by {certificate.issuer} · {certificate.period}</p>
+              <p className="certificate-issuer">Issued by {certificate.issuer} </p>
             </div>
             <span className="certificate-category">{certificate.category}</span>
           </div>
@@ -105,7 +100,7 @@ const Certificates = () => {
 
   // Main Component Return
   return (
-    <div className="certificates-section">
+    <div className="certificates-section" id="certificates">
       {/* --- HEADING ADDED --- */}
       <div className="heading-container">
         <h2 className="main-heading">Validated Expertise </h2>

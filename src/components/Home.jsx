@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowIcon, DecorativeIcon, DropdownIcon, SocialX, SocialInstagram, SocialLinkedIn } from './icons';
-import SpotlightCard from './animations/SpotlightCard';
+import { ArrowIcon, DecorativeIcon, SocialX, SocialInstagram,SocialGithub,SocialGoogle, SocialLinkedIn } from './icons';
+import SpotlightCard from './animations/SpotlightCard'; // This component now needs the fix mentioned above
 
 const projectData = [
     {
@@ -9,22 +10,40 @@ const projectData = [
         title: 'LawGorithm',
         imageUrl: '/assets/law.png',
         imageAlt: 'Screenshot of LawGorithm',
+        linkUrl: '/projects/lawgorithm'
     },
     {
         id: 2,
         title: 'DelAI',
         imageUrl: '/assets/delai.png',
         imageAlt: 'Screenshot of DelAI',
+        linkUrl: '/projects/delai'
     },
     {
         id: 3,
         title: 'VantaAI',
         imageUrl: '/assets/vantaai.png',
         imageAlt: 'Screenshot of VantaAI',
+        linkUrl: '/projects/vantaai'
     },
 ];
 
-export default function Home({ scrollTo }) {
+export default function Home() {
+    
+    const scrollTo = (sectionId) => {
+        // If it's the about section, navigate to the About page
+       {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    }
+
+
     const DropdownIcon = () => (
         <svg
             width="24"
@@ -45,7 +64,6 @@ export default function Home({ scrollTo }) {
     );
 
     const HoverAccordion = () => {
-        // State to track which project is open. Default to the first project's ID.
         const [openProject, setOpenProject] = useState(projectData[0].id);
 
         return (
@@ -81,10 +99,11 @@ export default function Home({ scrollTo }) {
                                         <div className="p-3 pt-0">
                                             <img src={project.imageUrl} alt={project.imageAlt} className="rounded-md w-full object-cover" />
                                             <motion.a
-                                                href="#"
+                                                href={project.linkUrl}
                                                 className="view-more-btn block text-center w-full mt-3 bg-blue-600 text-white py-2 rounded-lg font-semibold"
-                                                whileHover={{ scale: 1.05, backgroundColor: '#2563EB' }} // bg-blue-700
+                                                whileHover={{ scale: 1.05, backgroundColor: '#2563EB' }}
                                                 whileTap={{ scale: 0.95 }}
+                                                onClick={(e) => e.stopPropagation()}
                                             >
                                                 View Details
                                             </motion.a>
@@ -99,29 +118,19 @@ export default function Home({ scrollTo }) {
         );
     };
 
-    // Animation variants for the main grid container
     const gridVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                when: "beforeChildren",
-                staggerChildren: 0.1,
-            },
+            transition: { when: "beforeChildren", staggerChildren: 0.1 },
         },
     };
 
-    // Animation variants for each item in the grid
     const itemVariants = {
         hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { type: 'spring', stiffness: 120 }
-        },
+        visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 120 } },
     };
 
-    // Hover/Tap animations for interactive items
     const interactiveAnimations = {
         whileHover: { scale: 1.03, y: -5, zIndex: 10 },
         whileTap: { scale: 0.97 },
@@ -136,13 +145,11 @@ export default function Home({ scrollTo }) {
                 initial="hidden"
                 animate="visible"
             >
-                {/* Item 1 */}
                 <SpotlightCard className="bento-item item-1" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1, transition: { delay: 0.2, type: 'spring' } }} className="decorative-icon"><DecorativeIcon /></motion.div>
                     <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}>Crafting thoughtful products from pixel to production</motion.h1>
                 </SpotlightCard>
 
-                {/* Item 2 - Image with a subtle zoom on hover and Resume button */}
                 <SpotlightCard className="bento-item item-2 relative" variants={itemVariants}>
                     <motion.img
                         src="/assets/portrait.jpeg"
@@ -151,25 +158,15 @@ export default function Home({ scrollTo }) {
                         whileHover={{ scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 10 }}
                     />
-                    {/* --- RESUME BUTTON (INLINE STYLES) --- */}
                     <motion.a
                         href="/assets/RESUME.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                            position: 'absolute',
-                            bottom: '1rem',
-                            right: '1rem',
-                            backgroundColor: 'rgba(17, 24, 39, 0.7)',
-                            backdropFilter: 'blur(4px)',
-                            color: 'white',
-                            fontSize: '0.75rem',
-                            fontWeight: '600',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '9999px',
-                            border: '1px solid #4B5563',
-                            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-                            textDecoration: 'none',
+                            position: 'absolute', bottom: '1rem', right: '1rem', backgroundColor: 'rgba(17, 24, 39, 0.7)',
+                            backdropFilter: 'blur(4px)', color: 'white', fontSize: '0.75rem', fontWeight: '600',
+                            padding: '0.5rem 1rem', borderRadius: '9999px', border: '1px solid #4B5563',
+                            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)', textDecoration: 'none',
                         }}
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(17, 24, 39, 0.9)' }}
                         whileTap={{ scale: 0.95 }}
@@ -178,21 +175,21 @@ export default function Home({ scrollTo }) {
                     </motion.a>
                 </SpotlightCard>
 
-                {/* Item 3 - Functional Projects Accordion */}
                 <SpotlightCard className="bento-item item-3" variants={itemVariants}>
                     <HoverAccordion />
                 </SpotlightCard>
 
-                {/* Socials Card */}
                 <SpotlightCard className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="social-links-card">
-                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
-                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
-                        <motion.a href="#" whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialLinkedIn /></motion.a>
+                        <motion.a href="https://x.com/anitageorge1806" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
+                        <motion.a href="https://www.instagram.com/senorita._.anita/?next=%2F" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
+                        <motion.a href="https://www.linkedin.com/in/anita-george-8b8334326/" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialLinkedIn /></motion.a>
+                        <motion.a href="https://developers.google.com/profile/u/111948759518898877846" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialGoogle /></motion.a>
+                        <motion.a href="https://github.com/AnitaGeorge404" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialGithub /></motion.a>
+
                     </div>
                 </SpotlightCard>
 
-                {/* Bio Card */}
                 <SpotlightCard className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="decorative-icon-small"><DecorativeIcon size={40} /></div>
                     <p>Full-stack developer and engineering student at IIITK, building clean, user-focused digital experiences.</p>
@@ -204,8 +201,7 @@ export default function Home({ scrollTo }) {
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
                 </SpotlightCard>
 
-                {/* Contact Card */}
-                <SpotlightCard  className="bento-item item-6" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-6" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>
