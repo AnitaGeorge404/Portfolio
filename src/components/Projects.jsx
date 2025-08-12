@@ -11,21 +11,21 @@ export default function Projects() {
             description: "An award-winning AI platform that optimizes last-mile delivery by integrating real-time geospatial data with predictive analytics. The system dynamically adjusts routes based on live traffic, reducing delivery times by 22%.",
             tech: ["React.js", "Leaflet.js", "Gemini API", "OpenStreetMap", "OSRM"],
             imageUrl: "/assets/2.png",
-            link: "#"
+            link: "https://github.com/LestlinRobins/AIVentures"
         },
         {
             title: "LawGorithm - Public Safety Platform",
             description: "An AI-powered PWA that enhances public safety with real-time threat detection, predictive crime heatmaps, and automated emergency alerts. It also provides on-demand legal guidance via an AI chatbot.",
             tech: ["Next.js", "React.js", "Gemini AI", "GCP", "Supabase", "OpenCV", "Computer Vision"],
             imageUrl: "/assets/1.png",
-            link: "#"
+            link: "https://github.com/LestlinRobins/LawGorithm"
         },
         {
             title: "VantaAI - Digital Guardian",
             description: "A 2nd-place winning web app designed to combat image-based abuse like deepfakes. It empowers users with proactive protection via watermarking, AI-powered web scanning, and automated complaint generation.",
             tech: ["React.js", "Node.js", "Python", "Gemini API", "Supabase", "OpenCV"],
             imageUrl: "/assets/3.png",
-            link: "#"
+            link: "https://github.com/AnitaGeorge404/VantaAI"
         }
     ];
 
@@ -206,6 +206,7 @@ export default function Projects() {
                     display: inline-flex;
                     align-items: center;
                     margin-top: 2.5rem;
+                    margin-bottom: 1.5rem;
                     color: #F5F5F5;
                     text-decoration: none;
                     font-weight: 600;
@@ -233,7 +234,7 @@ export default function Projects() {
                     .projects-container {
                         display: flex; /* Override grid */
                         flex-direction: column;
-                        gap: 5rem; /* Space between cards */
+                        gap: 7rem; /* MODIFIED: Increased space between cards for better mobile separation */
                     }
 
                     /* Hide the desktop sticky image container */

@@ -4,9 +4,9 @@ import { ArrowIcon, DecorativeIcon, SocialX, SocialInstagram, SocialGithub, Soci
 import SpotlightCard from './animations/SpotlightCard';
 
 const projectData = [
-    { id: 1, title: 'LawGorithm', imageUrl: '/assets/law.png', imageAlt: 'Screenshot of LawGorithm', linkUrl: '/projects/lawgorithm' },
-    { id: 2, title: 'DelAI', imageUrl: '/assets/delai.png', imageAlt: 'Screenshot of DelAI', linkUrl: '/projects/delai' },
-    { id: 3, title: 'VantaAI', imageUrl: '/assets/vantaai.png', imageAlt: 'Screenshot of VantaAI', linkUrl: '/projects/vantaai' },
+    { id: 1, title: 'LawGorithm', imageUrl: '/assets/law.png', imageAlt: 'Screenshot of LawGorithm', linkUrl: 'https://github.com/LestlinRobins/LawGorithm' },
+    { id: 2, title: 'DelAI', imageUrl: '/assets/delai.png', imageAlt: 'Screenshot of DelAI', linkUrl: 'https://github.com/LestlinRobins/AIVentures' },
+    { id: 3, title: 'VantaAI', imageUrl: '/assets/vantaai.png', imageAlt: 'Screenshot of VantaAI', linkUrl: 'https://github.com/AnitaGeorge404/VantaAI' },
 ];
 
 export default function Home() {
