@@ -4,27 +4,9 @@ import { ArrowIcon, DecorativeIcon, SocialX, SocialInstagram, SocialGithub, Soci
 import SpotlightCard from './animations/SpotlightCard';
 
 const projectData = [
-    {
-        id: 1,
-        title: 'LawGorithm',
-        imageUrl: '/assets/law.png',
-        imageAlt: 'Screenshot of LawGorithm',
-        linkUrl: '/projects/lawgorithm'
-    },
-    {
-        id: 2,
-        title: 'DelAI',
-        imageUrl: '/assets/delai.png',
-        imageAlt: 'Screenshot of DelAI',
-        linkUrl: '/projects/delai'
-    },
-    {
-        id: 3,
-        title: 'VantaAI',
-        imageUrl: '/assets/vantaai.png',
-        imageAlt: 'Screenshot of VantaAI',
-        linkUrl: '/projects/vantaai'
-    },
+    { id: 1, title: 'LawGorithm', imageUrl: '/assets/law.png', imageAlt: 'Screenshot of LawGorithm', linkUrl: '/projects/lawgorithm' },
+    { id: 2, title: 'DelAI', imageUrl: '/assets/delai.png', imageAlt: 'Screenshot of DelAI', linkUrl: '/projects/delai' },
+    { id: 3, title: 'VantaAI', imageUrl: '/assets/vantaai.png', imageAlt: 'Screenshot of VantaAI', linkUrl: '/projects/vantaai' },
 ];
 
 export default function Home() {
@@ -32,10 +14,7 @@ export default function Home() {
     const scrollTo = (sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
-            element.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -46,15 +25,20 @@ export default function Home() {
     );
 
     const HoverAccordion = () => {
-        const [openProject, setOpenProject] = useState(projectData[0].id);
+        const [openProject, setOpenProject] = useState(null);
 
         return (
-            <div className="w-full max-w-sm mx-auto bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-4 border border-gray-700 text-gray-50">
-                <h2 style={{ paddingLeft: '1.5rem' }}>Featured Work</h2>
-                <div className="sidebar-content space-y-2">
+            <div className="w-full h-full mx-auto bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-4 border border-gray-700 text-gray-50 flex flex-col">
+                <h2 className="text-xl font-semibold pl-3 mb-2">Featured Work</h2>
+                <div className="sidebar-content space-y-2 flex-grow">
                     {projectData.map((project) => (
-                        <div key={project.id} className="project-accordion-item rounded-lg overflow-hidden cursor-pointer" onMouseEnter={() => setOpenProject(project.id)} onMouseLeave={() => setOpenProject(null)}>
-                            <motion.div className="sidebar-item flex justify-between items-center p-3" whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}>
+                        <div
+                            key={project.id}
+                            className="project-accordion-item rounded-lg overflow-hidden"
+                            onMouseEnter={() => setOpenProject(project.id)}
+                            onMouseLeave={() => setOpenProject(null)}
+                        >
+                            <motion.div className="sidebar-item flex justify-between items-center p-3 cursor-pointer" whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}>
                                 <span className="font-medium text-gray-200">{project.title}</span>
                                 <motion.div animate={{ rotate: openProject === project.id ? 180 : 0 }}>
                                     <DropdownIcon />
@@ -87,10 +71,7 @@ export default function Home() {
 
     const gridVariants = {
         hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { when: "beforeChildren", staggerChildren: 0.1 },
-        },
+        visible: { opacity: 1, transition: { when: "beforeChildren", staggerChildren: 0.1 } },
     };
 
     const itemVariants = {
@@ -106,112 +87,38 @@ export default function Home() {
 
     return (
         <section id="home">
-            {/* --- All necessary CSS is included here --- */}
-            <style>{`
-                /* By default, any element with this class will be hidden. */
-                .hide-on-mobile {
-                  display: none;
-                }
-                
-                /* Mobile-First Grid Layout (Default) */
-                .bento-grid {
-                  display: grid;
-                  grid-template-columns: 1fr; /* A single column for mobile */
-                  gap: 1rem;
-                  padding: 1rem;
-                }
-                
-                /* Specific styles for the two items visible on mobile */
-                .bento-grid .item-1 {
-                  grid-column: 1 / -1;
-                  min-height: 250px;
-                }
-                
-                .bento-grid .item-2 {
-                  grid-column: 1 / -1;
-                  min-height: 400px;
-                }
-
-                /* --- Desktop Layout (for screens 1024px and wider) --- */
-                @media (min-width: 1024px) {
-                  /* Show the elements we hid on mobile */
-                  .hide-on-mobile {
-                    display: flex;
-                  }
-                  
-                  /* Restore the full grid layout for desktop */
-                  .bento-grid {
-                    grid-template-columns: repeat(4, 1fr);
-                    grid-auto-rows: minmax(100px, auto);
-                    gap: 1.5rem;
-                    padding: 1.5rem;
-                  }
-
-                  /* --- YOUR DESKTOP GRID PLACEMENTS --- */
-                  /* Note: These are example placements. Adjust as needed. */
-                  .bento-grid .item-1 {
-                    grid-column: 1 / 3;
-                    grid-row: 1 / 2;
-                    min-height: auto; /* Reset mobile height */
-                  }
-                  .bento-grid .item-2 {
-                    grid-column: 3 / 5;
-                    grid-row: 1 / 2;
-                    min-height: auto; /* Reset mobile height */
-                  }
-                  .bento-grid .item-3 {
-                    grid-column: 4 / 5;
-                    grid-row: 2 / 4;
-                  }
-                  .bento-grid .item-socials {
-                    grid-column: 1 / 2;
-                    grid-row: 3 / 4;
-                  }
-                  .bento-grid .item-4 {
-                    grid-column: 1 / 3;
-                    grid-row: 2 / 3;
-                  }
-                  .bento-grid .item-5 {
-                    grid-column: 2 / 4;
-                    grid-row: 3 / 4;
-                  }
-                  .bento-grid .item-6 {
-                    grid-column: 3 / 4;
-                    grid-row: 2 / 3;
-                  }
-                }
-            `}</style>
-            
-            {/* --- JSX STRUCTURE --- */}
             <motion.div
                 className="bento-grid"
                 variants={gridVariants}
                 initial="hidden"
                 animate="visible"
             >
-                {/* These two items are always visible */}
+                {/* --- Visible on All Screens --- */}
                 <SpotlightCard className="bento-item item-1" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1, transition: { delay: 0.2, type: 'spring' } }} className="decorative-icon"><DecorativeIcon /></motion.div>
                     <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}>Crafting thoughtful products from pixel to production</motion.h1>
                 </SpotlightCard>
 
                 <SpotlightCard className="bento-item item-2 relative" variants={itemVariants}>
-                    <motion.img
-                        src="/assets/portrait.jpeg"
-                        alt="Portrait of Anita George"
-                        className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                    />
+                    <motion.img src="/assets/portrait.jpeg" alt="Portrait of Anita George" className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 200, damping: 10 }} />
                     <motion.a
                         href="/assets/RESUME.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                            position: 'absolute', bottom: '1rem', right: '1rem', backgroundColor: 'rgba(17, 24, 39, 0.7)',
-                            backdropFilter: 'blur(4px)', color: 'white', fontSize: '0.75rem', fontWeight: '600',
-                            padding: '0.5rem 1rem', borderRadius: '9999px', border: '1px solid #4B5563',
-                            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)', textDecoration: 'none',
+                            position: 'absolute',
+                            bottom: '1rem',
+                            right: '1rem',
+                            backgroundColor: 'rgba(17, 24, 39, 0.7)',
+                            backdropFilter: 'blur(4px)',
+                            color: 'white',
+                            fontSize: '0.75rem',
+                            fontWeight: '600',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '9999px',
+                            border: '1px solid #4B5563',
+                            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+                            textDecoration: 'none',
                         }}
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(17, 24, 39, 0.9)' }}
                         whileTap={{ scale: 0.95 }}
@@ -220,7 +127,7 @@ export default function Home() {
                     </motion.a>
                 </SpotlightCard>
 
-                {/* These items are hidden on mobile by the 'hide-on-mobile' class */}
+                {/* --- Visible on Desktop Only --- */}
                 <SpotlightCard className="bento-item item-3 hide-on-mobile" variants={itemVariants}>
                     <HoverAccordion />
                 </SpotlightCard>
@@ -241,12 +148,12 @@ export default function Home() {
                 </SpotlightCard>
 
                 <SpotlightCard className="bento-item item-5 hide-on-mobile" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
-                    <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem", color:'white' }}>The How</p>
-                    <h2 style={{ fontSize: "3rem", marginTop: "-0.3rem", color:'white', fontFamily:'Playfair Display' }}>Skills</h2>
+                    <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem", color: 'white' }}>The How</p>
+                    <h2 style={{ fontSize: "3rem", marginTop: "-0.3rem", color: 'white', fontFamily: 'Playfair Display' }}>Skills</h2>
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
                 </SpotlightCard>
 
-                <SpotlightCard className="bento-item item-6 hide-on-mobile" styles={{marginTop: "-1rem"}} onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-6 hide-on-mobile" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>
@@ -255,6 +162,7 @@ export default function Home() {
                         <p>georgeanita404@gmail.com</p>
                     </motion.div>
                 </SpotlightCard>
+
             </motion.div>
         </section>
     );

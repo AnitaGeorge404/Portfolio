@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// The Redesigned About Component with Integrated Terminal
+// The About Component with layout fix
 export default function About() {
     const sectionRef = useRef(null);
     const terminalRef = useRef(null);
@@ -8,31 +8,51 @@ export default function About() {
     const [currentText, setCurrentText] = useState('');
     const [isTyping, setIsTyping] = useState(false);
 
+    // Content data is correct
     const terminalContent = [
-        { prompt: "$ AnitaGeorge:~$ who_am_i", content: [">Full-Stack Developer & UI/UX Designer.\n>Specializing in creating seamless, data-driven web applications and intuitive user experiences.\n>My expertise spans the entire stack, from crafting robust back-end APIs to designing pixel-perfect, front-end interfaces.\n>I'm passionate about building products that are not just functional, but a joy to use."] },
-        { prompt: "$ AnitaGeorge:~$ core_philosophy", content: [">Fusing Code with Design: My work is driven by the philosophy that technology and design are two sides of the same coin. I believe in writing clean, functional code that powers elegant and accessible design, creating a cohesive and delightful user journey.\n>Building for Impact: I focus on developing thoughtful, scalable systems that solve genuine user problems. My passion lies in real-world applications that improve people's lives.\n>People-First Approach: At the end of the day, great software is not just about features, but about the people who use it. My design and development process is always centered on user empathy and creating meaningful interactions."] }
+        {
+            prompt: "$ AnitaGeorge:~$ who_am_i",
+            content: [
+                "> Full-Stack Developer & UI/UX Designer.",
+                "> Specializing in creating seamless, data-driven web applications and intuitive user experiences.",
+                "> My expertise spans the entire stack, from crafting robust back-end APIs to designing pixel-perfect, front-end interfaces.",
+                "> I'm passionate about building products that are not just functional, but a joy to use."
+            ]
+        },
+        {
+            prompt: "$ AnitaGeorge:~$ core_philosophy",
+            content: [
+                "> Fusing Code with Design: My work is driven by the philosophy that technology and design are two sides of the same coin. I believe in writing clean, functional code that powers elegant and accessible design, creating a cohesive and delightful user journey.",
+                "> Building for Impact: I focus on developing thoughtful, scalable systems that solve genuine user problems. My passion lies in real-world applications that improve people's lives.",
+                "> People-First Approach: At the end of the day, great software is not just about features, but about the people who use it. My design and development process is always centered on user empathy and creating meaningful interactions."
+            ]
+        }
     ];
     const fullText = terminalContent.map(sec => sec.prompt + '\n' + sec.content.join('\n')).join('\n\n');
 
+    // Optimized IntersectionObserver that runs once
     useEffect(() => {
         const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting && !isTyping) {
+            if (entry.isIntersecting) {
                 setIsVisible(true);
                 setIsTyping(true);
+                observer.unobserve(entry.target);
             }
         }, { threshold: 0.4 });
 
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
+        const currentRef = sectionRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
         }
+        
         return () => {
-            if (sectionRef.current) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
-                observer.unobserve(sectionRef.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
-    }, [isTyping]);
+    }, []);
 
+    // Typewriter effect logic
     useEffect(() => {
         if (!isTyping) return;
         let index = 0;
@@ -49,11 +69,12 @@ export default function About() {
         typeWriter();
     }, [isTyping, fullText]);
 
+    // Text formatting for terminal output
     const formatText = (text) => {
         const lines = text.split('\n');
         return lines.map((line, index) => {
             if (line.startsWith('$')) {
-                return <div key={index} className="term-prompt-line"><span className="term-prompt-symbol">$</span><span className="term-prompt-command">{line.replace('$ ', '')}</span></div>;
+                return <div key={index} className="term-prompt-line"><span className="term-prompt-symbol">$</span><span className="term-prompt-command">{line.substring(2)}</span></div>;
             } else if (line.startsWith('>')) {
                 return <div key={index} className="term-content-line indented">
                     <span className="term-content-symbol">{'>'}</span>
@@ -68,7 +89,6 @@ export default function About() {
 
     return (
         <section id="about" ref={sectionRef} className={`about-section ${isVisible ? 'is-visible' : ''}`}>
-            {/* --- 🎨 MODERN UI STYLES (SINGLE FILE) --- */}
             <style>{`
                 .about-section {
                     min-height: 100vh;
@@ -96,14 +116,13 @@ export default function About() {
                     gap: 1.5rem;
                     width: 100%;
                     max-width: 1400px;
-                    height: 85vh;
                     box-sizing: border-box;
+                    /* FIX: Removed 'height: 85vh;' which caused content to be cut off. */
+                    /* The grid is now flexible and will grow as needed. */
                 }
 
                 .about-card {
-                    background: rgba(26, 26, 23, 0.7);
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
+                    background: rgba(26, 26, 23, 0.9); 
                     border-radius: 1.5rem;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     display: flex;
@@ -114,12 +133,12 @@ export default function About() {
 
                 .about-card:hover {
                     transform: translateY(-10px);
-                    box-shadow: 0 0 25px 5px rgba(180, 149, 218, 0.15);
+                    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
                 }
 
                 .left-column {
                     display: grid;
-                    grid-template-rows: 2fr 1fr;
+                    grid-template-rows: 1fr 1.5fr;
                     gap: 1.5rem;
                 }
 
@@ -136,7 +155,7 @@ export default function About() {
                     object-fit: cover;
                     transition: transform 0.5s ease;
                 }
-
+                
                 .about-photo-card:hover img {
                     transform: scale(1.05);
                 }
@@ -144,6 +163,7 @@ export default function About() {
                 .about-philosophy-card {
                     padding: 2rem;
                     color: #EAE8E3;
+                    /* This ensures the content inside is centered as it now has enough space */
                     justify-content: center;
                 }
 
@@ -174,7 +194,7 @@ export default function About() {
                     content: '✦';
                     position: absolute;
                     left: 0;
-                    color: #b495da;
+                    color: #888;
                     font-size: 1rem;
                 }
 
@@ -182,6 +202,8 @@ export default function About() {
                     grid-column: 2 / 3;
                     padding: 0;
                     overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
                 }
 
                 .terminal-header {
@@ -191,6 +213,7 @@ export default function About() {
                     align-items: center;
                     gap: 0.5rem;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    flex-shrink: 0; 
                 }
 
                 .dots { display: flex; gap: 0.5rem; }
@@ -212,27 +235,27 @@ export default function About() {
                     line-height: 1.8;
                     color: #EAE8E3;
                     font-family: 'Fira Code', monospace;
-                    height: 100%;
                     overflow-y: auto;
                     box-sizing: border-box;
+                    flex: 1; 
+                    min-height: 0;
                 }
                 
                 .term-prompt-line { display: flex; align-items: center; margin-bottom: 1rem; }
-                .term-prompt-symbol { color: #b495da; margin-right: 0.75rem; }
+                .term-prompt-symbol { color: #888; margin-right: 0.75rem; }
                 .term-prompt-command { color: #EAE8E3; font-weight: 500; }
                 
                 .term-content-line { margin-bottom: 0.5rem; display: flex; align-items: flex-start; }
                 .term-content-line.indented { margin-left: 1rem; }
                 .term-content-symbol { color: #888; margin-right: 0.75rem; }
                 .term-content-text { color: #C4BFB8; flex: 1; }
-
                 .term-line.empty { height: 1.2rem; }
 
                 .typing-cursor {
                     display: inline-block;
                     width: 10px;
                     height: 1.5rem;
-                    background-color: #b495da;
+                    background-color: #EAE8E3;
                     margin-left: 0.25rem;
                     animation: blink 1s infinite;
                     vertical-align: middle;
@@ -245,12 +268,10 @@ export default function About() {
                     .about-grid {
                         grid-template-columns: 1fr;
                         grid-template-rows: auto;
-                        height: auto;
                     }
                     .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 450px; }
-                    .left-column { grid-row: 2; }
+                    .left-column { grid-row: 2; grid-template-rows: auto; }
                     
-                    /* THIS IS THE ONLY CHANGE: Hide the photo card on mobile */
                     .about-photo-card { display: none; }
                 }
 
@@ -260,7 +281,6 @@ export default function About() {
                 }
             `}</style>
 
-            {/* --- JSX STRUCTURE --- */}
             <div className="about-grid">
                 <div className="left-column">
                     <div className="about-card about-photo-card">
