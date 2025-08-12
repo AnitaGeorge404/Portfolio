@@ -68,17 +68,18 @@ export default function About() {
 
     return (
         <section id="about" ref={sectionRef} className={`about-section ${isVisible ? 'is-visible' : ''}`}>
+            {/* --- 🎨 MODERN UI STYLES (SINGLE FILE) --- */}
             <style>{`
-                /* --- ABOUT SECTION STYLES (BENTO THEME) --- */
                 .about-section {
                     min-height: 100vh;
-                    background-color: #1A1A17; /* Theme background */
+                    background-color: #121212;
+                    background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.15), transparent 40%);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 4rem 0;
+                    padding: 4rem 1rem;
                     box-sizing: border-box;
-                    border-top: 1px solid #3a3a35;
+                    overflow: hidden;
                     opacity: 0;
                     transform: translateY(20px);
                     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -91,114 +92,181 @@ export default function About() {
 
                 .about-grid {
                     display: grid;
-                    grid-template-columns: 1fr 2fr; /* Left column is 1/3, Right is 2/3 */
-                    gap: 1rem;
+                    grid-template-columns: 1fr 2fr;
+                    gap: 1.5rem;
                     width: 100%;
-                    padding: 0 1rem;
-                    box-sizing: border-box;
+                    max-width: 1400px;
                     height: 85vh;
+                    box-sizing: border-box;
                 }
 
                 .about-card {
+                    background: rgba(26, 26, 23, 0.7);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
                     border-radius: 1.5rem;
-                    padding: 2.5rem;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
                     display: flex;
                     flex-direction: column;
-                    border: 1px solid #3a3a35;
                     transition: transform 0.4s ease, box-shadow 0.4s ease;
-                }
-                .about-card:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+                    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
                 }
 
-                /* Left Column Container */
+                .about-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 0 25px 5px rgba(180, 149, 218, 0.15);
+                }
+
                 .left-column {
                     display: grid;
-                    grid-template-rows: 2fr 1fr; /* Top card is 2/3 height, bottom is 1/3 */
-                    gap: 1rem;
+                    grid-template-rows: 2fr 1fr;
+                    gap: 1.5rem;
                 }
 
-                /* Main About Card (Right) - Now holds the terminal */
-                .about-main-card {
-                    grid-column: 2 / 3;
-                    background-color: #292925; /* Dark background for terminal */
-                    padding: 0; /* Remove padding to let terminal fill it */
-                    overflow: hidden; /* Important for border-radius */
-                }
-
-                /* Left side cards */
                 .about-photo-card {
-                    background-color: #292925;
-                    color: #888;
-                    align-items: center;
+                    padding: 0;
+                    overflow: hidden;
                     justify-content: center;
-                    font-family: 'Playfair Display', serif;
-                    font-size: 1.2rem;
+                    align-items: center;
+                }
+
+                .about-photo-card img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                .about-photo-card:hover img {
+                    transform: scale(1.05);
                 }
 
                 .about-philosophy-card {
-                    background-color: #292925;
+                    padding: 2rem;
                     color: #EAE8E3;
+                    justify-content: center;
                 }
 
                 .about-philosophy-card h3 {
                     font-family: 'Plus Jakarta Sans', sans-serif;
                     font-size: 1.1rem;
-                    font-weight: 600;
+                    font-weight: 700;
                     margin: 0 0 1rem 0;
+                    color: #ffffff;
+                }
+
+                .about-philosophy-card ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                }
+
+                .about-philosophy-card li {
+                    position: relative;
+                    padding-left: 1.5rem;
+                    margin-bottom: 0.75rem;
                     color: #C4BFB8;
                 }
 
-                .about-philosophy-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
-                .about-philosophy-card li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; }
-                .about-philosophy-card li::before { content: '•'; position: absolute; left: 0; color: #C4BFB8; }
+                .about-philosophy-card li::before {
+                    content: '✦';
+                    position: absolute;
+                    left: 0;
+                    color: #b495da;
+                    font-size: 1rem;
+                }
 
-                /* --- TERMINAL STYLES (INTEGRATED) --- */
-                .terminal-header { background-color: #3a3a35; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.5rem; }
+                .about-main-card {
+                    grid-column: 2 / 3;
+                    padding: 0;
+                    overflow: hidden;
+                }
+
+                .terminal-header {
+                    background-color: rgba(0, 0, 0, 0.3);
+                    padding: 0.75rem 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
                 .dots { display: flex; gap: 0.5rem; }
                 .dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; }
-                .dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
-                .terminal-title { color: #C4BFB8; font-size: 0.9rem; margin-left: 1rem; font-family: 'Fira Code', monospace; }
-                .terminal-body {
-                    padding: 1.5rem; font-size: 1rem; line-height: 1.7;
-                    color: #EAE8E3; font-family: 'Fira Code', monospace;
-                    height: 100%; overflow-y: auto; box-sizing: border-box;
+                .dot.red { background-color: #ff5f56; }
+                .dot.yellow { background-color: #ffbd2e; }
+                .dot.green { background-color: #27c93f; }
+
+                .terminal-title {
+                    color: #C4BFB8;
+                    font-size: 0.9rem;
+                    margin-left: auto;
+                    font-family: 'Fira Code', monospace;
                 }
+
+                .terminal-body {
+                    padding: 1.5rem;
+                    font-size: 1rem;
+                    line-height: 1.8;
+                    color: #EAE8E3;
+                    font-family: 'Fira Code', monospace;
+                    height: 100%;
+                    overflow-y: auto;
+                    box-sizing: border-box;
+                }
+                
                 .term-prompt-line { display: flex; align-items: center; margin-bottom: 1rem; }
-                .term-prompt-symbol { color: #C4BFB8; margin-right: 0.75rem; }
-                .term-prompt-command { color: #EAE8E3; font-weight: 600; }
+                .term-prompt-symbol { color: #b495da; margin-right: 0.75rem; }
+                .term-prompt-command { color: #EAE8E3; font-weight: 500; }
+                
                 .term-content-line { margin-bottom: 0.5rem; display: flex; align-items: flex-start; }
-                .term-content-line.indented { margin-left: 2rem; }
-                .term-content-symbol { color: #C4BFB8; margin-right: 0.75rem; }
-                .term-content-text { color: rgba(234, 232, 227, 0.7); flex: 1; }
-                .term-bullet-point { color: #C4BFB8; }
-                .term-bullet-text { margin-left: 0.75rem; color: #b0aba4; }
-                .term-line.empty { height: 1rem; }
-                .typing-cursor { display: inline-block; width: 10px; height: 1.5rem; background-color: #C4BFB8; margin-left: 0.25rem; animation: blink 1s infinite; }
+                .term-content-line.indented { margin-left: 1rem; }
+                .term-content-symbol { color: #888; margin-right: 0.75rem; }
+                .term-content-text { color: #C4BFB8; flex: 1; }
+
+                .term-line.empty { height: 1.2rem; }
+
+                .typing-cursor {
+                    display: inline-block;
+                    width: 10px;
+                    height: 1.5rem;
+                    background-color: #b495da;
+                    margin-left: 0.25rem;
+                    animation: blink 1s infinite;
+                    vertical-align: middle;
+                }
+
                 @keyframes blink { 50% { opacity: 0; } }
 
-                /* Responsive Design */
                 @media (max-width: 1024px) {
                     .about-section { padding: 4rem 1rem; }
-                    .about-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
-                    .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 400px; }
+                    .about-grid {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: auto;
+                        height: auto;
+                    }
+                    .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 450px; }
                     .left-column { grid-row: 2; }
-                    .about-photo-card { min-height: 300px; }
+                    .about-photo-card { min-height: 350px; }
                 }
+
                 @media (max-width: 768px) {
-                    .terminal-body { font-size: 0.9rem; padding: 1rem; }
+                    .terminal-body { font-size: 0.9rem; padding: 1.2rem; }
+                    .about-philosophy-card { padding: 1.5rem; }
                 }
             `}</style>
 
+            {/* --- JSX STRUCTURE --- */}
             <div className="about-grid">
                 <div className="left-column">
                     <div className="about-card about-photo-card">
-                        Beyond the Code
+                        <img src="/assets/portrait.jpeg" alt="Anita George Portrait" />
                     </div>
 
                     <div className="about-card about-philosophy-card">
-                        <h3>Beyond the Code</h3>
+                        <h3>Core Philosophy</h3>
                         <ul>
                             <li>Crafting intuitive, user-centered experiences.</li>
                             <li>Building robust systems designed for growth.</li>
