@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// The About Component with layout fix
+// The About Component with final layout and portrait fix
 export default function About() {
     const sectionRef = useRef(null);
     const terminalRef = useRef(null);
@@ -8,7 +8,7 @@ export default function About() {
     const [currentText, setCurrentText] = useState('');
     const [isTyping, setIsTyping] = useState(false);
 
-    // Content data is correct
+    // FIX: Cleaned up the terminal content data structure for reliability.
     const terminalContent = [
         {
             prompt: "$ AnitaGeorge:~$ who_am_i",
@@ -30,7 +30,7 @@ export default function About() {
     ];
     const fullText = terminalContent.map(sec => sec.prompt + '\n' + sec.content.join('\n')).join('\n\n');
 
-    // Optimized IntersectionObserver that runs once
+    // Using an optimized IntersectionObserver
     useEffect(() => {
         const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) {
@@ -39,12 +39,12 @@ export default function About() {
                 observer.unobserve(entry.target);
             }
         }, { threshold: 0.4 });
-
+        
         const currentRef = sectionRef.current;
         if (currentRef) {
             observer.observe(currentRef);
         }
-        
+
         return () => {
             if (currentRef) {
                 observer.unobserve(currentRef);
@@ -69,7 +69,6 @@ export default function About() {
         typeWriter();
     }, [isTyping, fullText]);
 
-    // Text formatting for terminal output
     const formatText = (text) => {
         const lines = text.split('\n');
         return lines.map((line, index) => {
@@ -92,14 +91,13 @@ export default function About() {
             <style>{`
                 .about-section {
                     min-height: 100vh;
-                    background-color: #121212;
-                    background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.15), transparent 40%);
+                    background-color: #1A1A17; 
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     padding: 4rem 1rem;
                     box-sizing: border-box;
-                    overflow: hidden;
+                    border-top: 1px solid #3a3a35;
                     opacity: 0;
                     transform: translateY(20px);
                     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -112,172 +110,126 @@ export default function About() {
 
                 .about-grid {
                     display: grid;
-                    grid-template-columns: 1fr 2fr;
-                    gap: 1.5rem;
+                    grid-template-columns: 1fr 2fr; 
+                    gap: 1rem;
                     width: 100%;
-                    max-width: 1400px;
+                    /* CHANGE: Reduced max-width to make the entire component and all cards smaller. */
+                    max-width: 1200px; 
                     box-sizing: border-box;
-                    /* FIX: Removed 'height: 85vh;' which caused content to be cut off. */
-                    /* The grid is now flexible and will grow as needed. */
                 }
 
                 .about-card {
-                    background: rgba(26, 26, 23, 0.9); 
                     border-radius: 1.5rem;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
                     display: flex;
                     flex-direction: column;
+                    border: 1px solid #3a3a35;
                     transition: transform 0.4s ease, box-shadow 0.4s ease;
-                    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+                    background-color: #292925;
                 }
-
                 .about-card:hover {
-                    transform: translateY(-10px);
-                    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+                    transform: translateY(-8px);
+                    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
                 }
 
                 .left-column {
                     display: grid;
-                    grid-template-rows: 1fr 1.5fr;
-                    gap: 1.5rem;
+                    grid-template-rows: 2fr 1fr; 
+                    gap: 1rem;
                 }
-
+                
                 .about-photo-card {
-                    padding: 0;
+                    padding: 0; 
                     overflow: hidden;
-                    justify-content: center;
+                    color: #888;
                     align-items: center;
+                    justify-content: center;
                 }
-
+                
                 .about-photo-card img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    transition: transform 0.5s ease;
+                    object-position: center; 
+                    transition: transform 0.4s ease;
                 }
-                
+
                 .about-photo-card:hover img {
                     transform: scale(1.05);
                 }
 
                 .about-philosophy-card {
-                    padding: 2rem;
+                    padding: 1.5rem;
                     color: #EAE8E3;
-                    /* This ensures the content inside is centered as it now has enough space */
                     justify-content: center;
+                    height: max-content;
                 }
 
                 .about-philosophy-card h3 {
                     font-family: 'Plus Jakarta Sans', sans-serif;
                     font-size: 1.1rem;
-                    font-weight: 700;
+                    font-weight: 600;
                     margin: 0 0 1rem 0;
-                    color: #ffffff;
-                }
-
-                .about-philosophy-card ul {
-                    list-style: none;
-                    padding: 0;
-                    margin: 0;
-                    font-size: 0.95rem;
-                    line-height: 1.6;
-                }
-
-                .about-philosophy-card li {
-                    position: relative;
-                    padding-left: 1.5rem;
-                    margin-bottom: 0.75rem;
                     color: #C4BFB8;
                 }
 
-                .about-philosophy-card li::before {
-                    content: '✦';
-                    position: absolute;
-                    left: 0;
-                    color: #888;
-                    font-size: 1rem;
+                .about-philosophy-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+                .about-philosophy-card li { 
+                    position: relative; 
+                    padding-left: 1.25rem; 
+                    margin-bottom: 0.4rem; 
                 }
+                .about-philosophy-card li::before { content: '•'; position: absolute; left: 0; color: #C4BFB8; }
 
                 .about-main-card {
                     grid-column: 2 / 3;
-                    padding: 0;
+                    padding: 0; 
                     overflow: hidden;
                     display: flex;
                     flex-direction: column;
+                    height: max-content;
                 }
 
-                .terminal-header {
-                    background-color: rgba(0, 0, 0, 0.3);
-                    padding: 0.75rem 1.5rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    flex-shrink: 0; 
-                }
-
+                .terminal-header { background-color: #3a3a35; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
                 .dots { display: flex; gap: 0.5rem; }
                 .dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; }
-                .dot.red { background-color: #ff5f56; }
-                .dot.yellow { background-color: #ffbd2e; }
-                .dot.green { background-color: #27c93f; }
-
-                .terminal-title {
-                    color: #C4BFB8;
-                    font-size: 0.9rem;
-                    margin-left: auto;
-                    font-family: 'Fira Code', monospace;
-                }
+                .dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
+                .terminal-title { color: #C4BFB8; font-size: 0.9rem; margin-left: 1rem; font-family: 'Fira Code', monospace; }
 
                 .terminal-body {
-                    padding: 1.5rem;
-                    font-size: 1rem;
-                    line-height: 1.8;
-                    color: #EAE8E3;
-                    font-family: 'Fira Code', monospace;
-                    overflow-y: auto;
-                    box-sizing: border-box;
-                    flex: 1; 
+                    padding: 1.25rem; 
+                    font-size: 1rem; 
+                    line-height: 1.7;
+                    color: #EAE8E3; font-family: 'Fira Code', monospace;
+                    overflow-y: auto; box-sizing: border-box;
+                    flex: 1;
                     min-height: 0;
                 }
-                
+
                 .term-prompt-line { display: flex; align-items: center; margin-bottom: 1rem; }
-                .term-prompt-symbol { color: #888; margin-right: 0.75rem; }
-                .term-prompt-command { color: #EAE8E3; font-weight: 500; }
-                
+                .term-prompt-symbol { color: #C4BFB8; margin-right: 0.75rem; }
+                .term-prompt-command { color: #EAE8E3; font-weight: 600; }
                 .term-content-line { margin-bottom: 0.5rem; display: flex; align-items: flex-start; }
                 .term-content-line.indented { margin-left: 1rem; }
-                .term-content-symbol { color: #888; margin-right: 0.75rem; }
-                .term-content-text { color: #C4BFB8; flex: 1; }
-                .term-line.empty { height: 1.2rem; }
-
-                .typing-cursor {
-                    display: inline-block;
-                    width: 10px;
-                    height: 1.5rem;
-                    background-color: #EAE8E3;
-                    margin-left: 0.25rem;
-                    animation: blink 1s infinite;
-                    vertical-align: middle;
-                }
-
+                .term-content-symbol { color: #C4BFB8; margin-right: 0.75rem; }
+                .term-content-text { color: rgba(234, 232, 227, 0.7); flex: 1; }
+                .term-line.empty { height: 1rem; }
+                .typing-cursor { display: inline-block; width: 10px; height: 1.5rem; background-color: #C4BFB8; margin-left: 0.25rem; animation: blink 1s infinite; }
                 @keyframes blink { 50% { opacity: 0; } }
 
                 @media (max-width: 1024px) {
-                    .about-section { padding: 4rem 1rem; }
-                    .about-grid {
-                        grid-template-columns: 1fr;
-                        grid-template-rows: auto;
+                    .about-grid { 
+                        /* On smaller screens, allow the grid to be narrower */
+                        max-width: 95%;
+                        grid-template-columns: 1fr; 
+                        grid-template-rows: auto; 
                     }
-                    .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 450px; }
+                    .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 400px; }
                     .left-column { grid-row: 2; grid-template-rows: auto; }
-                    
-                    .about-photo-card { display: none; }
+                    .about-photo-card { min-height: 300px; }
                 }
-
                 @media (max-width: 768px) {
-                    .terminal-body { font-size: 0.9rem; padding: 1.2rem; }
-                    .about-philosophy-card { padding: 1.5rem; }
+                    .terminal-body { font-size: 0.9rem; padding: 1rem; }
+                    .about-philosophy-card { padding: 1.25rem; }
                 }
             `}</style>
 
