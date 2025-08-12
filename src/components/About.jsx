@@ -249,7 +249,9 @@ export default function About() {
                     }
                     .about-main-card { grid-column: 1 / -1; grid-row: 1; min-height: 450px; }
                     .left-column { grid-row: 2; }
-                    .about-photo-card { min-height: 350px; }
+                    
+                    /* THIS IS THE ONLY CHANGE: Hide the photo card on mobile */
+                    .about-photo-card { display: none; }
                 }
 
                 @media (max-width: 768px) {
