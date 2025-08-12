@@ -127,12 +127,12 @@ export default function Home() {
                     </motion.a>
                 </SpotlightCard>
 
-                {/* --- Visible on Desktop Only (md screens and up) --- */}
-                <SpotlightCard className="bento-item item-3 hidden md:block" variants={itemVariants}>
+                {/* --- These items will be hidden on mobile via app.css --- */}
+                <SpotlightCard className="bento-item item-3" variants={itemVariants}>
                     <HoverAccordion />
                 </SpotlightCard>
 
-                <SpotlightCard className="bento-item item-socials hidden md:block" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-socials" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="social-links-card">
                         <motion.a href="https://x.com/anitageorge1806" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialX /></motion.a>
                         <motion.a href="https://www.instagram.com/senorita._.anita/?next=%2F" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} whileHover={{ y: -4, scale: 1.1 }} transition={interactiveAnimations.transition}><SocialInstagram /></motion.a>
@@ -142,18 +142,18 @@ export default function Home() {
                     </div>
                 </SpotlightCard>
 
-                <SpotlightCard className="bento-item item-4 hidden md:block" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-4" onClick={() => scrollTo('about')} variants={itemVariants} {...interactiveAnimations}>
                     <div className="decorative-icon-small"><DecorativeIcon size={40} /></div>
                     <p>Full-stack developer and engineering student at IIITK, building clean, user-focused digital experiences.</p>
                 </SpotlightCard>
 
-                <SpotlightCard className="bento-item item-5 hidden md:block" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-5" onClick={() => scrollTo('skills')} variants={itemVariants} {...interactiveAnimations}>
                     <p style={{ fontSize: "1.5rem", marginTop: "-0.3rem", color: 'white' }}>The How</p>
                     <h2 style={{ fontSize: "3rem", marginTop: "-0.3rem", color: 'white', fontFamily: 'Playfair Display' }}>Skills</h2>
                     <motion.div className="icon-link" animate={{ x: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowIcon /></motion.div>
                 </SpotlightCard>
 
-                <SpotlightCard className="bento-item item-6 hidden md:block" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
+                <SpotlightCard className="bento-item item-6" onClick={() => scrollTo('contact')} variants={itemVariants} {...interactiveAnimations}>
                     <motion.h2 className="contact-headline-visual" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.6 } }}>
                         Let's work together on your next project
                     </motion.h2>

@@ -45,7 +45,6 @@ body {
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* --- THIS IS THE ONLY LINE THAT CHANGED --- */
     grid-template-rows: 3fr 3fr 1fr 1fr; /* Top rows are larger, bottom rows are smaller */
     gap: 1rem; height: 100%; padding: 1rem; box-sizing: border-box;
 }
@@ -66,7 +65,7 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none; }
 .item-4 { grid-column: 1 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-dark); justify-content: space-between; }
 .item-5 { grid-column: 2 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-light); color: var(--text-color-light); justify-content: space-between; }
 .item-6 { grid-column: 3 / span 1; grid-row: 3 / span 2; background-color: var(--card-bg-dark); justify-content: space-between; align-items: flex-start; }
@@ -92,7 +91,7 @@ outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none; }
 .sidebar-item {
     padding: 1.75rem 2rem; border-bottom: 1px solid var(--border-color);
     display: flex; justify-content: space-between; align-items: center;
@@ -104,7 +103,7 @@ outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;
 }
 .sidebar-item:hover { background-color: #33332d;
 outline: none;
@@ -113,7 +112,7 @@ outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none; }
 .sidebar-image-container {
     flex-grow: 1; min-height: 200px; position: relative;
     border-bottom: 1px solid var(--border-color); padding: 1.5rem;
@@ -124,7 +123,7 @@ outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;
 }
 .view-more-btn {
     background: rgba(26, 26, 23, 0.5); backdrop-filter: blur(5px);
@@ -148,10 +147,17 @@ outline: none;
     .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
     .bento-item { grid-column: span 1 !important; grid-row: auto !important; min-height: 300px; }
 }
+
 @media (max-width: 768px) {
     .header-nav { display: none; }
     .item-1 h1 { font-size: 2.8rem; }
-    .hide-on-mobile {
-    display: none !important;
-}
+    
+    /* --- HIDE SPECIFIC BENTO ITEMS ON MOBILE --- */
+    .item-3,
+    .item-4,
+    .item-5,
+    .item-6,
+    .item-socials {
+        display: none !important;
+    }
 }
